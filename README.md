@@ -1,1 +1,4 @@
-# EmployEase-Frontend
+To start a dev server :
+
+npm install
+npm run dev
