@@ -6,7 +6,7 @@ const DepartmentForm = () => {
     departmentId: '',
     name: '',
     location: '',
-    managerId:''
+    manager_id:''
   });
 
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ const DepartmentForm = () => {
         departmentId: '',
         name: '',
         location: '',
-        managerId:''
+        manager_id:''
     });
   };
 
@@ -74,7 +74,7 @@ return (
           
           <input
             type="text"
-            name="managerId"
+            name="manager_id"
             value={formData.contactNumber}
             onChange={handleChange}
             required

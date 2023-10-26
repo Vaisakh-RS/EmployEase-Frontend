@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import "../styles/formStyle.css"
+import { useApi } from '../ApiContext';
 
 const EmployeeForm = () => {
   const [formData, setFormData] = useState({
     employeeId: '',
     name: '',
     email: '',
-    contactNumber: '',
-    dateOfJoining: '',
-    yearsOfExperience: '',
+    contact_number: '',
+    date_of_joining: '',
+    years_of_experience: '',
+    department:'',
   });
+
+  const {api} = useApi();
 
   const [isDateInput, setIsDateInput] = useState(false);
   const handleChange = (e) => {
@@ -31,6 +35,7 @@ const EmployeeForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    console.log(api)
   };
 
   const handleClear = () => {
@@ -38,9 +43,10 @@ const EmployeeForm = () => {
       employeeId: '',
       name: '',
       email: '',
-      contactNumber: '',
-      dateOfJoining: '',
-      yearsOfExperience: '',
+      contact_number: '',
+      date_of_joining: '',
+      years_of_experience: '',
+      department:'',
     });
   };
 
@@ -87,8 +93,8 @@ return (
           
           <input
             type="text"
-            name="contactNumber"
-            value={formData.contactNumber}
+            name="contact_number"
+            value={formData.contact_number}
             onChange={handleChange}
             required
             placeholder='Contact'
@@ -99,8 +105,8 @@ return (
             {isDateInput?(
                 <input
                 type="date"
-                name="dateOfJoining"
-                value={formData.dateOfJoining}
+                name="date_of_joining"
+                value={formData.date_of_joining}
                 onChange={handleChange}
                 required
                 placeholder='Date of Joining'
@@ -111,8 +117,8 @@ return (
             ):(
                 <input
                 type="text"
-                name="dateOfJoining"
-                value={formData.dateOfJoining}
+                name="date_of_joining"
+                value={formData.date_of_joining}
                 onChange={handleChange}
                 required
                 placeholder='Date of Joining'
