@@ -1,8 +1,15 @@
-.employeeform-container{
-    max-width:400px;
-    margin: 50px;
-    padding: 40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.form-container {
+    margin: 20px; 
+    padding: 20px; 
+    
+  }
   
-}
+  .form-input {
+    margin-bottom: 10px;
+    
+     
+  }
+  
+  .form-button {
+    margin-right: 10px; 
+  }
