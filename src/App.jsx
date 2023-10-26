@@ -10,8 +10,8 @@ function App() {
     <Router>
       <AppBar />
       <Routes>
-        <Route path="/EmployeeForm" element={<EmployeeForm />} />
-        <Route path="/DepartmentForm" element={<DepartmentForm />} />
+        <Route path="/src/components/EmployeeForm" element={<EmployeeForm />} />
+        <Route path="src/components/DepartmentForm" element={<DepartmentForm />} />
       </Routes>
     </Router>
   );
