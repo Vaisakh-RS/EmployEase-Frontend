@@ -1,7 +1,15 @@
+import ButtonAppBar from "./components/AppBar"
+import EmployeeForm from "./components/EmployeeForm"
+
 export default function App()
 {
   return(
-    <h1>Hello</h1>
+    <>
+      <ButtonAppBar/>
+      <EmployeeForm/>
+    </>
+    
+
   )
   
 }
