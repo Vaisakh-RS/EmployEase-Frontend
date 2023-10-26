@@ -1,15 +1,20 @@
-import ButtonAppBar from "./components/AppBar"
-import EmployeeForm from "./components/EmployeeForm"
 
-export default function App()
-{
-  return(
-    <>
-      <ButtonAppBar/>
-      <EmployeeForm/>
-    </>
-    
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import EmployeeForm from './components/EmployeeForm';
+import DepartmentForm from './components/DepartmentForm';
 
-  )
-  
+import AppBar from './components/AppBar';
+
+function App() {
+  return (
+    <Router>
+      <AppBar />
+      <Routes>
+        <Route path="/EmployeeForm" element={<EmployeeForm />} />
+        <Route path="/DepartmentForm" element={<DepartmentForm />} />
+      </Routes>
+    </Router>
+  );
 }
+
+export default App;
