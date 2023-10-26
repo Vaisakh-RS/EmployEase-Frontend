@@ -4,10 +4,9 @@ import EmployeeForm from './components/EmployeeForm';
 import DepartmentForm from './components/DepartmentForm';
 
 import AppBar from './components/AppBar';
-
 function App() {
   return (
-    <Router>
+    <Router basename='{process.env.PUBLIC_URL}'>
       <AppBar />
       <Routes>
         <Route path="/src/components/EmployeeForm" element={<EmployeeForm />} />
