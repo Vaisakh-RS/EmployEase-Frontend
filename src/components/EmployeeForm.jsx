@@ -3,13 +3,15 @@ import "../styles/formStyle.css"
 
 const EmployeeForm = () => {
   const [formData, setFormData] = useState({
-    employeeId: '',
+    //employeeId: '',
     name: '',
     email: '',
     contactNumber: '',
     dateOfJoining: '',
     yearsOfExperience: '',
   });
+
+  const [departments, setDepartments] = useState([]);
 
   const [isDateInput, setIsDateInput] = useState(false);
   const handleChange = (e) => {
@@ -20,6 +22,28 @@ const EmployeeForm = () => {
     });
   };
 
+  const getDepartments = async () => {
+    const apiUrl = 'http://127.0.0.1:8000/api/departments/';
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        },
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setDepartments(responseData); // Update the state with the fetched departments
+      } else {
+        console.error('GET request failed:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('GET request error:', error);
+    }
+  };
+
   const handleDateInputFocus=()=>{
     setIsDateInput(true);
   }
@@ -27,15 +51,38 @@ const EmployeeForm = () => {
   const handleDateInputBlur = () => {
     setIsDateInput(false);
   };
-  //handlesubmit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log(formData)
+
+  const apiUrl = 'http://127.0.0.1:8000/api/employees/';
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Adjust the content type as needed
+      },
+      body: JSON.stringify(formData), // Assuming formData contains the data to send
+    });
+
+    if (response.ok) {
+      // Request was successful, handle the response here
+      const responseData = await response.json(); // Parse the response if it returns JSON
+      console.log('POST request successful:', responseData);
+    } else {
+      // Request failed, handle the error
+      console.error('POST request failed:', response.status, response.statusText);
+    }
+  } catch (error) {
+    // Handle any network or other errors
+    console.error('POST request error:', error);
+  }
+};
 
   const handleClear = () => {
     setFormData({
-      employeeId: '',
+      //employeeId: '',
       name: '',
       email: '',
       contactNumber: '',
@@ -49,7 +96,7 @@ const EmployeeForm = () => {
 return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-      <div className="form-input">
+      {/*<div className="form-input">
           <input
             type="text"
             name="employeeId"
@@ -59,7 +106,7 @@ return (
             placeholder="Employee ID"
             className="border rounded p-2"
           />
-        </div>
+      </div>*/}
         <div className="form-input">
           
           <input
