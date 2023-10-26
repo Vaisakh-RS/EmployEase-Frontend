@@ -3,10 +3,10 @@ import "../styles/formStyle.css"
 
 const DepartmentForm = () => {
   const [formData, setFormData] = useState({
-    departmentId: '',
+    //departmentId: '',
     name: '',
     location: '',
-    managerId:''
+    //managerId:''
   });
 
   const handleChange = (e) => {
@@ -18,17 +18,41 @@ const DepartmentForm = () => {
   };
 
   //handlesubmit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log(formData)
+    // Define the API endpoint
+    const apiUrl = 'http://127.0.0.1:8000/api/departments/'; 
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        },
+        body: JSON.stringify(formData), // Convert formData to JSON
+      });
+
+      if (response.ok) {
+        // Request was successful, handle the response here
+        const responseData = await response.json(); // Parse the response if it returns JSON
+        console.log('POST request successful:', responseData);
+      } else {
+        // Request failed, handle the error
+        console.error('POST request failed:', response.status, response.statusText);
+      }
+    } catch (error) {
+      // Handle any network or other errors
+      console.error('POST request error:', error);
+    }
   };
 
   const handleClear = () => {
     setFormData({
-        departmentId: '',
+        //departmentId: '',
         name: '',
         location: '',
-        managerId:''
+        //managerId:''
     });
   };
 
@@ -37,7 +61,7 @@ const DepartmentForm = () => {
 return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-      <div className="form-input">
+      {/*<div className="form-input">
           <input
             type="text"
             name="departmentId"
@@ -47,7 +71,7 @@ return (
             placeholder="Department ID"
             className="border rounded p-2"
           />
-        </div>
+        </div>*/}
         <div className="form-input">
           <input
             type="text"
@@ -70,7 +94,7 @@ return (
             className="border rounded p-2"
           />
         </div>
-        <div className="form-input">
+        {/*<div className="form-input">
           
           <input
             type="text"
@@ -81,7 +105,7 @@ return (
             placeholder='Manager ID'
             className="border rounded p-2"
           />
-        </div>
+      </div>*/}
         <div>
           <button
             type="submit"
