@@ -6,11 +6,11 @@ import DepartmentForm from './components/DepartmentForm';
 import AppBar from './components/AppBar';
 function App() {
   return (
-    <Router basename='{process.env.PUBLIC_URL}'>
+    <Router>
       <AppBar />
       <Routes>
-        <Route path="/src/components/EmployeeForm" element={<EmployeeForm />} />
-        <Route path="src/components/DepartmentForm" element={<DepartmentForm />} />
+        <Route path="/EmployeeForm" element={<EmployeeForm />} />
+        <Route path="/DepartmentForm" element={<DepartmentForm />} />
       </Routes>
     </Router>
   );
