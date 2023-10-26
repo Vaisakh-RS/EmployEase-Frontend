@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import "../styles/formStyle.css"
 
-const EmployeeForm = () => {
+const DepartmentForm = () => {
   const [formData, setFormData] = useState({
-    employeeId: '',
+    departmentId: '',
     name: '',
-    email: '',
-    contactNumber: '',
-    dateOfJoining: '',
-    yearsOfExperience: '',
+    location: '',
+    managerId:''
   });
 
-  const [isDateInput, setIsDateInput] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -20,13 +17,6 @@ const EmployeeForm = () => {
     });
   };
 
-  const handleDateInputFocus=()=>{
-    setIsDateInput(true);
-  }
-
-  const handleDateInputBlur = () => {
-    setIsDateInput(false);
-  };
   //handlesubmit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,12 +25,10 @@ const EmployeeForm = () => {
 
   const handleClear = () => {
     setFormData({
-      employeeId: '',
-      name: '',
-      email: '',
-      contactNumber: '',
-      dateOfJoining: '',
-      yearsOfExperience: '',
+        departmentId: '',
+        name: '',
+        location: '',
+        managerId:''
     });
   };
 
@@ -52,16 +40,15 @@ return (
       <div className="form-input">
           <input
             type="text"
-            name="employeeId"
-            value={formData.employeeId}
+            name="departmentId"
+            value={formData.departmentId}
             onChange={handleChange}
             required
-            placeholder="Employee ID"
+            placeholder="Department ID"
             className="border rounded p-2"
           />
         </div>
         <div className="form-input">
-          
           <input
             type="text"
             name="name"
@@ -74,12 +61,12 @@ return (
         </div>
         <div className="form-input">
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="location"
+            value={formData.location}
             onChange={handleChange}
             required
-            placeholder='Email'
+            placeholder='Location'
             className="border rounded p-2"
           />
         </div>
@@ -87,41 +74,13 @@ return (
           
           <input
             type="text"
-            name="contactNumber"
+            name="managerId"
             value={formData.contactNumber}
             onChange={handleChange}
             required
-            placeholder='Contact'
+            placeholder='Manager ID'
             className="border rounded p-2"
           />
-        </div>
-        <div className="form-input">
-            {isDateInput?(
-                <input
-                type="date"
-                name="dateOfJoining"
-                value={formData.dateOfJoining}
-                onChange={handleChange}
-                required
-                placeholder='Date of Joining'
-                onFocus={handleDateInputFocus}
-                onBlur={handleDateInputBlur}
-                className="border rounded p-2"
-              />
-            ):(
-                <input
-                type="text"
-                name="dateOfJoining"
-                value={formData.dateOfJoining}
-                onChange={handleChange}
-                required
-                placeholder='Date of Joining'
-                onFocus={handleDateInputFocus}
-                onBlur={handleDateInputBlur}
-                className="border rounded p-2"
-              />
-            )}
-          
         </div>
         <div>
           <button
@@ -144,4 +103,4 @@ return (
   
 };
 
-export default EmployeeForm;
+export default DepartmentForm;

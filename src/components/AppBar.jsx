@@ -1,29 +1,15 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-
-export default function ButtonAppBar() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 4 }}
-          >
-          </IconButton>
-          <Button color="inherit">Employee</Button>
-          <Button color="inherit">Department</Button>
-          
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
+export default function AppBar()
+{
+  return(
+    <div className="nav bg-black p-4">
+      <ul className="text-white flex space-x-4">
+        <li>
+          <a href="/EmployeeForm">Employee</a>
+        </li>
+        <li>
+          <a href="/DepartmentForm">Department</a>
+        </li>
+      </ul>
+    </div>
+  )
 }

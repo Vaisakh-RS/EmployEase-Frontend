@@ -1,0 +1,19 @@
+.form-container {
+    margin: 20px; 
+    padding: 20px; 
+    /* background-color: rgb(223, 223, 130); */
+  }
+  
+  .form-input {
+    margin-bottom: 10px;
+    padding: 15px;
+  }
+
+  input{
+    width: 460px;
+  }
+  
+  .form-button {
+    margin-right: 20px;
+    margin-left: 19px;
+  }
