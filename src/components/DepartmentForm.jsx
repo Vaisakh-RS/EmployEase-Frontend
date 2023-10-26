@@ -22,7 +22,7 @@ const DepartmentForm = () => {
     e.preventDefault();
     console.log(formData)
     // Define the API endpoint
-    const apiUrl = 'http://127.0.0.1:8000/api/departments/'; 
+    const apiUrl = 'https://employease-backend-production.up.railway.app/api/departments/'; 
 
     try {
       const response = await fetch(apiUrl, {

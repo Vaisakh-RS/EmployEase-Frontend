@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import "../styles/formStyle.css"
 
 const EmployeeForm = () => {
@@ -12,6 +12,7 @@ const EmployeeForm = () => {
   });
 
   const [departments, setDepartments] = useState([]);
+  const [selectedDepartment,setSelectedDepartment]=useState('');
 
   const [isDateInput, setIsDateInput] = useState(false);
   const handleChange = (e) => {
@@ -22,27 +23,31 @@ const EmployeeForm = () => {
     });
   };
 
-  const getDepartments = async () => {
-    const apiUrl = 'http://127.0.0.1:8000/api/departments/';
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json', // Adjust the content type as needed
-        },
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        setDepartments(responseData); // Update the state with the fetched departments
-      } else {
-        console.error('GET request failed:', response.status, response.statusText);
+  //to get the name of the departments to the select input
+  useEffect(()=>{
+    async function getDepartments() {
+      const apiUrl = 'https://employease-backend-production.up.railway.app/api/departments/';
+  
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json', // Adjust the content type as needed
+          },
+        });
+  
+        if (response.ok) {
+          const responseData = await response.json();
+          setDepartments(responseData); // Update the state with the fetched departments
+        } else {
+          console.error('GET request failed:', response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error('GET request error:', error);
       }
-    } catch (error) {
-      console.error('GET request error:', error);
     }
-  };
+  },[]);
+  
 
   const handleDateInputFocus=()=>{
     setIsDateInput(true);
@@ -55,7 +60,7 @@ const EmployeeForm = () => {
   e.preventDefault();
   console.log(formData)
 
-  const apiUrl = 'http://127.0.0.1:8000/api/employees/';
+  const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees/';
 
   try {
     const response = await fetch(apiUrl, {
@@ -91,6 +96,10 @@ const EmployeeForm = () => {
     });
   };
 
+ 
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
+  };
 
 
 return (
@@ -170,6 +179,19 @@ return (
             )}
           
         </div>
+
+        <div className='form-input'>
+          <select value={departments.name} onChange={handleDepartmentChange} className='border rounded p-2 w-70'>
+            <option value="">Select Department</option>
+            {departments.map((department, index) => (
+              <option key={index} value={department.name}>
+                {department.name}
+              </option>
+            ))}
+          </select>
+          <p>Selected Department: {selectedDepartment}</p>
+        </div>
+
         <div>
           <button
             type="submit"
