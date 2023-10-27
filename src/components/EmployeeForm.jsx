@@ -184,6 +184,7 @@ const EmployeeForm = () => {
 
     if (response.ok) {
       // Request was successful, handle the response here
+      setRefresh(!refresh)
       const responseData = await response.json(); // Parse the response if it returns JSON
       console.log('POST request successful:', responseData);
     } else {

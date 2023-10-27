@@ -13,6 +13,7 @@ import ChooseManagerComponent from './ChooseManagerComponent';
 const DepartmentForm = () => {
   const [ChooseManager,setChooseManager] = useState(false)
   const [selectedDepId,setSelectedDepId] = useState()
+  const [refresh,setRefresh] = useState(false)
   const [formData, setFormData] = useState({
     //departmentId: '',
     name: '',
@@ -144,6 +145,7 @@ const DepartmentForm = () => {
 
       if (response.ok) {
         // Request was successful, handle the response here
+        setRefresh(!refresh)
         const responseData = await response.json(); // Parse the response if it returns JSON
         console.log('POST request successful:', responseData);
       } else {
@@ -165,7 +167,7 @@ const DepartmentForm = () => {
   useEffect(() => {
     getDepartments();
     getEmployees();
-  }, [ChooseManager]);
+  }, [ChooseManager,refresh]);
  
 
 
