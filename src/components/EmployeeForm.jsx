@@ -162,7 +162,7 @@ const EmployeeForm = () => {
   
 return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='mb-10'>
       {/*<div className="form-input">
           <input
             type="text"
@@ -277,8 +277,8 @@ return (
         <TableContainer component={Paper} className='w-20'>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
+              <TableRow className='bg-slate-200'>
+                <TableCell >Name</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Contact Number</TableCell>
                 <TableCell>Date of Joining</TableCell>
@@ -297,8 +297,8 @@ return (
                   <TableCell>{row.yearsOfExperience}</TableCell>
                   <TableCell>{row.department}</TableCell>
                   <TableCell>
-                    <button onClick={() => handleUpdate(row)} className='border'>Update</button>
-                    <button onClick={() => handleDelete(row)}>Delete</button>
+                    <button onClick={() => handleUpdate(row)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Update</button>
+                    <button onClick={() => handleDelete(row)} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Delete</button>
                   </TableCell>
                 </TableRow>
               ))}

@@ -129,7 +129,7 @@ const choosemanager=()=>{
 
 return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='mb-10'>
         <div className="form-input">
           <input
             type="text"
@@ -184,7 +184,7 @@ return (
         <TableContainer component={Paper} className='w-20'>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <TableRow className='bg-slate-200'>
                 <TableCell>Name</TableCell>
                 <TableCell>Location</TableCell>
                 <TableCell>Manager</TableCell>
