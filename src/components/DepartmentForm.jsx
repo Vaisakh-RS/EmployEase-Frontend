@@ -8,7 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ChooseManagerComponent from './ChooseManagerComponent';
-import { CustomToastSuccess, CustomToastError } from './DeleteToast';
+import { CustomToastSuccess, CustomToastError } from './CustomToast';
 
 
 const DepartmentForm = () => {

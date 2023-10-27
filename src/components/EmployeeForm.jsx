@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import EditModal from './EditEmployeeModal';
-import { CustomToastSuccess, CustomToastError } from './DeleteToast';
+import { CustomToastSuccess, CustomToastError } from './CustomToast';
 
 
 
