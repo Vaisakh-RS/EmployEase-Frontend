@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import {  useEffect, useState } from 'react';
 import "../styles/formStyle.css";
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -112,7 +112,7 @@ const EmployeeForm = () => {
   };
   const handleSubmit = async (e) => {
   e.preventDefault();
-  setTableData((prevData) => [...prevData, formData]);  //useeffect
+   //useeffect
   console.log(formData)
 
   const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees/';
@@ -143,6 +143,19 @@ const EmployeeForm = () => {
   }
 
 };
+
+//To display the employees data from db
+useEffect(() => {
+  const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees';
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      setTableData(data);
+    })
+    .catch((error) => {
+      console.error('Error fetching employee data:', error);
+    });
+}, []);
 
   const handleClear = () => {
     setFormData({
