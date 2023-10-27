@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
-  const [editedData, setEditedData] = useState(dataToEdit);
+const EditDepartmentModal = ({ isOpen, onRequestClose, departmentData, managers, onSave }) => {
+  const [editedData, setEditedData] = useState(departmentData);
   const [departments, setDepartments] = useState([]);
 
 
@@ -38,10 +38,10 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
     <Modal
     isOpen={isOpen}
     onRequestClose={onRequestClose}
-    contentLabel="Edit Modal"
+    contentLabel="Edit Department Modal"
     className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 bg-white shadow-md rounded px-6 py-4"
   >
-    <h2 className="text-2xl font-semibold mb-4">Edit Employee Data</h2>
+    <h2 className="text-2xl font-semibold mb-4">Edit Department Data</h2>
     <form>
       <div className="form-input mb-3">
         <label className="text-lg block">Name:</label>
@@ -53,44 +53,25 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
         />
       </div>
       <div className="form-input mb-3">
-        <label className="text-lg block">Email:</label>
-        <input
-          type="email"
-          value={editedData.email}
-          onChange={(e) => setEditedData({ ...editedData, email: e.target.value })}
-          className="border rounded w-full p-2"
-        />
-      </div>
-      <div className="form-input mb-3">
-        <label className="text-lg block">Contact Number:</label>
+        <label className="text-lg block">Location:</label>
         <input
           type="text"
-          value={editedData.contactNumber}
-          onChange={(e) => setEditedData({ ...editedData, contactNumber: e.target.value })}
+          value={editedData.location}
+          onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
           className="border rounded w-full p-2"
         />
       </div>
       <div className="form-input mb-3">
-        <label className="text-lg block">Date of Joining:</label>
-        <input
-          type="date"
-          value={editedData.dateOfJoining}
-          onChange={(e) => setEditedData({ ...editedData, dateOfJoining: e.target.value })}
-          className="border rounded w-full p-2"
-        />
-      </div>
-      <div className="form-input mb-3">
-        <label className="text-lg block">Department:</label>
+        <label className="text-lg block">Manager:</label>
         <select
-          value={editedData.department}
-          onClick={getDepartments}
-          onChange={(e) => setEditedData({ ...editedData, department: e.target.value })}
+          value={editedData.managerId}
+          onChange={(e) => setEditedData({ ...editedData, managerId: e.target.value })}
           className="border rounded w-full p-2"
         >
-          <option value="">Select Department</option>
-          {departments.map((department, index) => (
-            <option key={index} value={department.id}>
-              {department.name}
+          <option value="">Select Manager</option>
+          {managers.map((manager) => (
+            <option key={manager.id} value={manager.id}>
+              {manager.name}
             </option>
           ))}
         </select>
@@ -112,6 +93,5 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
     </form>
   </Modal>
   );
-};
-
-export default EditModal;
+}
+export default EditDepartmentModal;
