@@ -233,11 +233,7 @@ useEffect(() => {
     const department = departments.find((dep) => dep.id === depId);
     return department ? department.name : ''; // Return the department name if found, otherwise an empty string
   }
-
-
-
  
-  
 return (
     <div className="form-container">
       <form onSubmit={handleSubmit} className='mb-10'>
@@ -321,8 +317,7 @@ return (
             )}
           
         </div>
-        <p>Years of Experience:{formData.yearsOfExperience}</p>
-
+      
         <div className='form-input'>
           <select name='department' value={formData.department} onChange={handleChange} onClick={getDepartments} className='border rounded p-2 w-70'>
             <option value="">Select Department</option>
@@ -332,9 +327,7 @@ return (
               </option>
             ))}
           </select>
-          <p>Selected Department: {formData.department}</p>
         </div>
-
         <div>
           <button
             type="submit"

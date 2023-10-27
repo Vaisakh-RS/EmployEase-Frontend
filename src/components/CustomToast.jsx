@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 export const showCustomToast = (message, type) => {
   toast(message, {
     position: 'top-right',
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
