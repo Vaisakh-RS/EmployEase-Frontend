@@ -4,10 +4,10 @@ export default function AppBar()
     <div className="nav bg-black p-4">
       <ul className="text-white flex space-x-4">
         <li>
-          <a href="EmployEase-Frontend/src/components/EmployeeForm">Employee</a>
+          <a href="/DepartmentForm">Department</a>
         </li>
         <li>
-          <a href="/DepartmentForm">Department</a>
+          <a href="EmployEase-Frontend/src/components/EmployeeForm">Employee</a>
         </li>
       </ul>
     </div>
