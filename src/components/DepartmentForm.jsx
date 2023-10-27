@@ -155,11 +155,14 @@ const DepartmentForm = () => {
         CustomToastSuccess('Department Successfully Added.');
       } else {
         // Request failed, handle the error
+        
         console.error('POST request failed:', response.status, response.statusText);
+        CustomToastError('Creation of new Department failed');
       }
     } catch (error) {
       // Handle any network or other errors
       console.error('POST request error:', error);
+      CustomToastError('An error occurred while adding the department');
     }
   };
 
