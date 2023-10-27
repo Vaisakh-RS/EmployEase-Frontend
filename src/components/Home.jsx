@@ -19,6 +19,9 @@ function Home () {
 
   return (
     <>
+    <div className="bg-black text-white font-bold text-2xl px-[8rem] sticky top-0 py-5 ">
+      <h1 >Employ Ease</h1>
+    </div>
     <div className="home-container">
       <div>
           <img src={logo} className="logo" alt="logo" />
