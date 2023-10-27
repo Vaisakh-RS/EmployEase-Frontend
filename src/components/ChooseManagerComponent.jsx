@@ -57,7 +57,7 @@ const ChooseManagerComponent = ({selectedDepId,setChooseManager}) => {
                 .filter(
                   (employee) =>
                     employee.department === selectedDepId &&
-                    employee.yearOfExperience <= 5
+                    employee.yearsOfExperience >= 5
                 )
                 .map((employee, index) => (
                   <div className="employee" key={index}>
