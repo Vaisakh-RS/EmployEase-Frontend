@@ -8,6 +8,8 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import EditModal from './EditEmployeeModal';
+
 
 
 const EmployeeForm = () => {
@@ -21,11 +23,35 @@ const EmployeeForm = () => {
     department:''
   });
 
+
   const [tableData,setTableData]=useState([]);
 
   const [departments, setDepartments] = useState([]);
 
   const [isDateInput, setIsDateInput] = useState(false);
+
+  //To handle the modal
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [dataToEdit, setDataToEdit] = useState(null);
+
+
+  const handleUpdate = (row) => {
+    setDataToEdit(row);
+    setEditModalOpen(true);
+  };
+
+  const handleSaveEditedData = (editedData) => {
+    // Implement the logic to save the edited data to your data source
+    // Update the table data or make an API request to save the changes
+    // Close the modal
+    setEditModalOpen(false);
+  };
+
+  const handleDelete = (row) => {
+    // Implement the logic to delete the employee
+    // Update the table data or make an API request to delete the employee
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -130,13 +156,8 @@ const EmployeeForm = () => {
     });
   };
 
-const handleUpdate=()=>{
 
-}
 
-const handleDelete=()=>{
-
-}
  
   
 return (
@@ -281,6 +302,15 @@ return (
                   </TableCell>
                 </TableRow>
               ))}
+
+              {isEditModalOpen && (
+                  <EditModal
+                    isOpen={isEditModalOpen}
+                    onRequestClose={() => setEditModalOpen(false)}
+                    dataToEdit={dataToEdit}
+                    onSave={handleSaveEditedData}
+                  />
+            )}
             </TableBody>
           </Table>
         </TableContainer>
