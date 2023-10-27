@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import "../styles/formStyle.css";
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -27,10 +27,60 @@ const DepartmentForm = () => {
     });
   };
 
+  const handleDelete = async (row) => {
+    // Define the API endpoint with the department ID you want to delete
+    const apiUrl = `https://employease-backend-production.up.railway.app/api/departments/${row.id}`;
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        },
+      });
+  
+      if (response.ok) {
+        console.log(`DELETE request successful for department with ID ${row.id}`);
+        // You might want to remove the deleted department from your state
+        setTableData((prevData) => prevData.filter((item) => item.id !== row.id));
+      } else {
+        // Request failed, handle the error
+        console.error('DELETE request failed:', response.status, response.statusText);
+      }
+    } catch (error) {
+      // Handle any network or other errors
+      console.error('DELETE request error:', error);
+    }
+  };
+
+  async function getDepartments() {
+    const apiUrl = 'https://employease-backend-production.up.railway.app/api/departments/';
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        },
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setTableData(responseData); // Update the state with the fetched departments
+      } else {
+        console.error('GET request failed:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('GET request error:', error);
+    }
+  }
+
+
+
   //handlesubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setTableData((prevData) => [...prevData, formData]);
+    //setTableData((prevData) => [...prevData, formData]);
     console.log(formData)
     // Define the API endpoint
     const apiUrl = 'https://employease-backend-production.up.railway.app/api/departments/'; 
@@ -68,6 +118,10 @@ const DepartmentForm = () => {
         //managerId:''
     });
   };
+  useEffect(() => {
+    getDepartments();
+  }, []);
+
 
 
 
@@ -131,6 +185,8 @@ return (
               <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell>Location</TableCell>
+                <TableCell>Manager</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -138,6 +194,13 @@ return (
                 <TableRow key={index}>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.location}</TableCell>
+                  <TableCell>{row.managerId}</TableCell>
+                  <TableCell>
+                    <button onClick={() => handleDelete(row)}>Delete</button>
+                  </TableCell>
+                  <TableCell>
+                    <button onClick={() => choosemanager(row)}>Choose Manager</button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
