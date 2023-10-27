@@ -86,7 +86,7 @@ const EmployeeForm = () => {
   };
   const handleSubmit = async (e) => {
   e.preventDefault();
-  setTableData((prevData) => [...prevData, formData]);
+  setTableData((prevData) => [...prevData, formData]);  //useeffect
   console.log(formData)
 
   const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees/';
@@ -95,7 +95,10 @@ const EmployeeForm = () => {
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Adjust the content type as needed
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS' // Adjust the content type as needed
+        , // Adjust the content type as needed
       },
       body: JSON.stringify(formData), // Assuming formData contains the data to send
     });
@@ -127,6 +130,15 @@ const EmployeeForm = () => {
     });
   };
 
+const handleUpdate=()=>{
+
+}
+
+const handleDelete=()=>{
+
+}
+ 
+  
 return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
@@ -241,7 +253,7 @@ return (
         </div>
       </form>
       {tableData.length > 0 && (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className='w-20'>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -251,6 +263,7 @@ return (
                 <TableCell>Date of Joining</TableCell>
                 <TableCell>Years of Experience</TableCell>
                 <TableCell>Department</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -262,6 +275,10 @@ return (
                   <TableCell>{row.dateOfJoining}</TableCell>
                   <TableCell>{row.yearsOfExperience}</TableCell>
                   <TableCell>{row.department}</TableCell>
+                  <TableCell>
+                    <button onClick={() => handleUpdate(row)} className='border'>Update</button>
+                    <button onClick={() => handleDelete(row)}>Delete</button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

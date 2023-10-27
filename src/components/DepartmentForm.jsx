@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import "../styles/formStyle.css"
+import "../styles/formStyle.css";
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
 
 const DepartmentForm = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +16,8 @@ const DepartmentForm = () => {
     location: '',
     //managerId:''
   });
+
+  const [tableData,setTableData]=useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +30,7 @@ const DepartmentForm = () => {
   //handlesubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setTableData((prevData) => [...prevData, formData]);
     console.log(formData)
     // Define the API endpoint
     const apiUrl = 'https://employease-backend-production.up.railway.app/api/departments/'; 
@@ -28,7 +39,9 @@ const DepartmentForm = () => {
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Adjust the content type as needed
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS' // Adjust the content type as needed
         },
         body: JSON.stringify(formData), // Convert formData to JSON
       });
@@ -61,17 +74,6 @@ const DepartmentForm = () => {
 return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-      {/*<div className="form-input">
-          <input
-            type="text"
-            name="departmentId"
-            value={formData.departmentId}
-            onChange={handleChange}
-            required
-            placeholder="Department ID"
-            className="border rounded p-2"
-          />
-        </div>*/}
         <div className="form-input">
           <input
             type="text"
@@ -122,6 +124,26 @@ return (
           </button>
         </div>
       </form>
+      {tableData.length > 0 && (
+        <TableContainer component={Paper} className='w-20'>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Location</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableData.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.location}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </div>
   );
   
