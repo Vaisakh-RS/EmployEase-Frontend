@@ -127,10 +127,6 @@ const EmployeeForm = () => {
     });
   };
 
- 
-  
-
-
 return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
