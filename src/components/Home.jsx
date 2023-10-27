@@ -2,6 +2,7 @@ import React from "react";
 import logo from './assets/logo.svg'
 import { Button } from './Button';
 import '../styles/Home.css';
+import { useTypewriter } from "react-simple-typewriter";
 
 function Home () {
   const [text, count] = useTypewriter({
@@ -21,7 +22,7 @@ function Home () {
     <div className="bg-black text-white font-bold text-2xl px-[8rem] sticky top-0 py-5 ">
       <h1 >Employ Ease</h1>
     </div>
-    <div className="home-container">
+      <div className="home-container">
       <div>
           <img src={logo} className="logo" alt="logo" />
       </div>
