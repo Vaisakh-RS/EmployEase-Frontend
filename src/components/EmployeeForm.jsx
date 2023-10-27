@@ -59,7 +59,6 @@ const EmployeeForm = () => {
     fetch(apiUrl, requestOptions)
       .then((response) => {
         if (response.ok) {
-          CustomToastSuccess('Employee Successfully Added.');
           // Request was successful, handle the response here
           setRefresh(!refresh)  
           // Update the tableData state to reflect the changes
@@ -153,10 +152,9 @@ const EmployeeForm = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        CustomToastSuccess('Employee Details Successfully Added.');
+        
         setDepartments(responseData); // Update the state with the fetched departments
       } else {
-        CustomToastError('Failed to add Employee Details')
         console.error('GET request failed:', response.status, response.statusText);
       }
     } catch (error) {
@@ -191,10 +189,12 @@ const EmployeeForm = () => {
       // Request was successful, handle the response here
       setRefresh(!refresh)
       const responseData = await response.json(); // Parse the response if it returns JSON
+      CustomToastSuccess('Employee Details Successfully Added.');
       console.log('POST request successful:', responseData);
     } else {
       // Request failed, handle the error
       console.error('POST request failed:', response.status, response.statusText);
+      CustomToastError('Failed to add Employee Details')
     }
   } catch (error) {
     // Handle any network or other errors

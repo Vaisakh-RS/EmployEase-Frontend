@@ -5,7 +5,7 @@ export const showCustomToast = (message, type) => {
   toast(message, {
     position: 'top-right',
     autoClose: 2000,
-    hideProgressBar: false,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     type: type,

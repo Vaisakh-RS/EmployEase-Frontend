@@ -45,9 +45,10 @@ const DepartmentForm = () => {
         return response.json();
       })
       .then((data) => {
-        CustomToastSuccess('Department Successfully Added.');
+        
         console.log('GET request successful:', data);
         setEmployees(data);
+        
       })
       .catch((error) => {
         console.error('GET request error:', error);
@@ -106,6 +107,7 @@ const DepartmentForm = () => {
       if (response.ok) {
         const responseData = await response.json();
         setTableData(responseData); // Update the state with the fetched departments
+        
       } else {
         console.error('GET request failed:', response.status, response.statusText);
       }
@@ -152,6 +154,7 @@ const DepartmentForm = () => {
         setRefresh(!refresh)
         const responseData = await response.json(); // Parse the response if it returns JSON
         console.log('POST request successful:', responseData);
+        CustomToastSuccess('Department Successfully Added.');
       } else {
         // Request failed, handle the error
         console.error('POST request failed:', response.status, response.statusText);
