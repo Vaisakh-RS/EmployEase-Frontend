@@ -189,7 +189,7 @@ const handleUpdate=()=>{
 
 return (
   <> <AppBar/>
-    <div className="form-container">
+    <div className="form-container min-h-[100vh]">
       <div>
         {ChooseManager ? (
           <ChooseManagerComponent selectedDepId={selectedDepId} setChooseManager={setChooseManager}/>

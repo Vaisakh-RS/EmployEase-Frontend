@@ -236,7 +236,7 @@ useEffect(() => {
 return (
   <>
    <AppBar/>  
-    <div className="form-container">
+    <div className="form-container min-h-[100vh]">
       <form onSubmit={handleSubmit} className='mb-10'>
       {/*<div className="form-input">
           <input
