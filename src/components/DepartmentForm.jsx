@@ -126,7 +126,13 @@ const DepartmentForm = () => {
   }, []);
 
 
+const choosemanager=()=>{
+  
+}
 
+const handleUpdate=()=>{
+  
+}
 
 return (
     <div className="form-container">
@@ -136,6 +142,8 @@ return (
        ) : null}
       </div>
       <form onSubmit={handleSubmit}>
+
+      <form onSubmit={handleSubmit} className='mb-10'>
         <div className="form-input">
           <input
             type="text"
@@ -190,7 +198,7 @@ return (
         <TableContainer component={Paper} className='w-20'>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <TableRow className='bg-slate-200'>
                 <TableCell>Name</TableCell>
                 <TableCell>Location</TableCell>
                 <TableCell>Manager</TableCell>
@@ -204,7 +212,10 @@ return (
                   <TableCell>{row.location}</TableCell>
                   <TableCell>{row.managerId}</TableCell>
                   <TableCell>
-                    <button onClick={() => handleDelete(row)}>Delete</button>
+                  <TableCell>
+                    <button onClick={() => handleUpdate(row)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Update</button>
+                    <button onClick={() => handleDelete(row)} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Delete</button>
+                  </TableCell>
                   </TableCell>
                   <TableCell>
                     <button onClick={() => {
