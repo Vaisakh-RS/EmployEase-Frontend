@@ -141,7 +141,7 @@ return (
           <ChooseManagerComponent selectedDepId={selectedDepId} setChooseManager={setChooseManager}/>
        ) : null}
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='mb-10'>
         <div className="form-input">
           <input
             type="text"
@@ -219,7 +219,7 @@ return (
                     <button onClick={() => {
                       setChooseManager(true)
                       setSelectedDepId(row.id)
-                      }}>Choose Manager</button>
+                      }} className=' bg-indigo-500 text-white p-2 rounded'>Choose Manager</button>
                   </TableCell>
                 </TableRow>
               ))}
