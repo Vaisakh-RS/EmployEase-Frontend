@@ -1,7 +1,9 @@
 footer {
-    background-color: #ffffff;
+    background-color: #fdfbfb;
     padding: 20px;
     width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 footer p {

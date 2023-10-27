@@ -141,8 +141,7 @@ const DepartmentForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin':'*',
-          'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS' // Adjust the content type as needed
+          // Adjust the content type as needed
         },
         body: JSON.stringify(formData), // Convert formData to JSON
       });
@@ -155,11 +154,14 @@ const DepartmentForm = () => {
         CustomToastSuccess('Department Successfully Added.');
       } else {
         // Request failed, handle the error
+        
         console.error('POST request failed:', response.status, response.statusText);
+        CustomToastError('Creation of new Department failed');
       }
     } catch (error) {
       // Handle any network or other errors
       console.error('POST request error:', error);
+      CustomToastError('An error occurred while adding the department');
     }
   };
 

@@ -1,8 +1,7 @@
 import React from "react";
 import logo from './assets/logo.svg'
 import { Button } from './Button';
-import './Home.css';
-import { Cursor, useTypewriter } from "react-simple-typewriter";
+import '../styles/Home.css';
 
 function Home () {
   const [text, count] = useTypewriter({
