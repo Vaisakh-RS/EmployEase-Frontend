@@ -20,7 +20,38 @@ const DepartmentForm = () => {
     //managerId:''
   });
 
+  
+
   const [tableData,setTableData]=useState([]);
+  const [employees, setEmployees] = useState([]);
+
+  function getEmployees() {
+    const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees/';
+
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json', // Adjust the content type as needed
+      },
+    };
+
+    return fetch(apiUrl, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`GET request failed: ${response.status} - ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('GET request successful:', data);
+        setEmployees(data);
+      })
+      .catch((error) => {
+        console.error('GET request error:', error);
+        throw error;
+      });
+  }
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,7 +108,21 @@ const DepartmentForm = () => {
       console.error('GET request error:', error);
     }
   }
-
+  function convertManagerIdToName(managerId) {
+    // Check if employees data is available
+    if (employees.length === 0) {
+      return 'Loading...'; // You can return a loading message or any other appropriate value
+    }
+  
+    // Find the employee with the matching managerId
+    const employee = employees.find((employee) => employee.id === managerId);
+  
+    if (employee) {
+      return employee.name; // Return the employee name if found
+    } else {
+      return 'Manager not Assigned'; // Return a message if manager is not found
+    }
+  }
 
 
   //handlesubmit
@@ -115,20 +160,16 @@ const DepartmentForm = () => {
 
   const handleClear = () => {
     setFormData({
-        //departmentId: '',
         name: '',
         location: '',
-        //managerId:''
     });
   };
   useEffect(() => {
     getDepartments();
-  }, []);
+    getEmployees();
+  }, [ChooseManager]);
  
 
-const choosemanager=()=>{
-  
-}
 
 const handleUpdate=()=>{
   
@@ -208,7 +249,7 @@ return (
                 <TableRow key={index}>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.location}</TableCell>
-                  <TableCell>{row.managerId}</TableCell>
+                  <TableCell>{convertManagerIdToName(row.managerId)}</TableCell>
                   <TableCell>
                   <TableCell>
                     <button onClick={() => handleUpdate(row)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Update</button>

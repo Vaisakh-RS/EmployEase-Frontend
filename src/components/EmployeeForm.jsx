@@ -32,24 +32,80 @@ const EmployeeForm = () => {
 
   //To handle the modal
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [dataToEdit, setDataToEdit] = useState(null);
+  const [editedData, setEditedData] = useState(formData);
+  const [rowToUpdate, setRowToUpdate] = useState()
+  const [refresh,setRefresh]= useState(false);
 
 
   const handleUpdate = (row) => {
-    setDataToEdit(row);
     setEditModalOpen(true);
+    setRowToUpdate(row);
   };
 
-  const handleSaveEditedData = (editedData) => {
-    // Implement the logic to save the edited data to your data source
-    // Update the table data or make an API request to save the changes
-    // Close the modal
-    setEditModalOpen(false);
+  const handleSaveEditedData = () => {
+    // Define the API endpoint with the employee ID you want to update
+    const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${rowToUpdate.id}`;
+  
+    // Define the request options for the PUT request
+    const requestOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json', // Adjust the content type as needed
+      },
+      body: JSON.stringify(editedData), // Assuming editedData contains the data to send
+    };
+  
+    fetch(apiUrl, requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          // Request was successful, handle the response here
+          setRefresh(!refresh)  
+          // Update the tableData state to reflect the changes
+          setTableData((prevData) =>
+            prevData.map((item) =>
+              item.id === editedData.id ? { ...item, ...editedData } : item
+            )
+          );
+  
+          // Close the edit modal
+          setEditModalOpen(false);
+        } else {
+          // Request failed, handle the error
+          console.error('PUT request failed:', response.status, response.statusText);
+        }
+      })
+      .catch((error) => {
+        // Handle any network or other errors
+        console.error('PUT request error:', error);
+      });
   };
 
-  const handleDelete = (row) => {
-    // Implement the logic to delete the employee
-    // Update the table data or make an API request to delete the employee
+  const handleDelete = (employee) => {
+    const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${employee.id}`;
+  
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    };
+  
+    fetch(apiUrl, requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          // Request was successful, handle the response here
+  
+          // Remove the deleted employee from the tableData state
+          setTableData((prevData) => prevData.filter((item) => item.id !== employee.id));
+        } else {
+          // Request failed, handle the error
+          console.error('DELETE request failed:', response.status, response.statusText);
+        }
+      })
+      .catch((error) => {
+        // Handle any network or other errors
+        console.error('DELETE request error:', error);
+      });
   };
 
   const handleChange = (e) => {
@@ -143,6 +199,7 @@ const EmployeeForm = () => {
 
 //To display the employees data from db
 useEffect(() => {
+  getDepartments();
   const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees';
   fetch(apiUrl)
     .then((response) => response.json())
@@ -152,7 +209,7 @@ useEffect(() => {
     .catch((error) => {
       console.error('Error fetching employee data:', error);
     });
-}, []);
+}, [refresh]);
 
   const handleClear = () => {
     setFormData({
@@ -165,6 +222,11 @@ useEffect(() => {
       department:'',
     });
   };
+
+  function convertToDepName(depId) {
+    const department = departments.find((dep) => dep.id === depId);
+    return department ? department.name : ''; // Return the department name if found, otherwise an empty string
+  }
 
 
 
@@ -305,7 +367,7 @@ return (
                   <TableCell>{row.contactNumber}</TableCell>
                   <TableCell>{row.dateOfJoining}</TableCell>
                   <TableCell>{row.yearsOfExperience}</TableCell>
-                  <TableCell>{row.department}</TableCell>
+                  <TableCell>{convertToDepName(row.department)}</TableCell>
                   <TableCell>
                     <button onClick={() => handleUpdate(row)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Update</button>
                     <button onClick={() => handleDelete(row)} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Delete</button>
@@ -317,7 +379,8 @@ return (
                   <EditModal
                     isOpen={isEditModalOpen}
                     onRequestClose={() => setEditModalOpen(false)}
-                    dataToEdit={dataToEdit}
+                    editedData={editedData}
+                    functionToEdit={setEditedData}
                     onSave={handleSaveEditedData}
                   />
             )}
