@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
-  const [editedData, setEditedData] = useState(dataToEdit);
+const EditModal = ({ isOpen, onRequestClose, editedData, functionToEdit, onSave }) => {
   const [departments, setDepartments] = useState([]);
 
 
@@ -33,6 +32,26 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
     onSave(editedData);
     onRequestClose();
   };
+  function findExperience() {
+    const dateOfJoining = editedData.dateOfJoining;
+    
+    if (dateOfJoining) {
+      const joinDate = new Date(dateOfJoining);
+      const currentDate = new Date();
+  
+      // Calculate the difference in milliseconds
+      const difference = currentDate - joinDate;
+  
+      // Calculate the number of years of experience
+      const yearsOfExperience = difference / (1000 * 60 * 60 * 24 * 365.25); // Approximate days in a year
+  
+      // Update the state with the calculated experience
+      functionToEdit({
+        ...editedData,
+        yearsOfExperience: Math.floor(yearsOfExperience)
+      });
+    }
+  }
 
   return (
     <Modal
@@ -48,7 +67,7 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
         <input
           type="text"
           value={editedData.name}
-          onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
+          onChange={(e) => functionToEdit({ ...editedData, name: e.target.value })}
           className="border rounded w-full p-2"
         />
       </div>
@@ -57,7 +76,7 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
         <input
           type="email"
           value={editedData.email}
-          onChange={(e) => setEditedData({ ...editedData, email: e.target.value })}
+          onChange={(e) => functionToEdit({ ...editedData, email: e.target.value })}
           className="border rounded w-full p-2"
         />
       </div>
@@ -66,7 +85,7 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
         <input
           type="text"
           value={editedData.contactNumber}
-          onChange={(e) => setEditedData({ ...editedData, contactNumber: e.target.value })}
+          onChange={(e) => functionToEdit({ ...editedData, contactNumber: e.target.value })}
           className="border rounded w-full p-2"
         />
       </div>
@@ -75,7 +94,10 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
         <input
           type="date"
           value={editedData.dateOfJoining}
-          onChange={(e) => setEditedData({ ...editedData, dateOfJoining: e.target.value })}
+          onChange={(e) => {
+            functionToEdit({ ...editedData, dateOfJoining: e.target.value });
+            findExperience();
+          }}
           className="border rounded w-full p-2"
         />
       </div>
@@ -84,7 +106,7 @@ const EditModal = ({ isOpen, onRequestClose, dataToEdit, onSave }) => {
         <select
           value={editedData.department}
           onClick={getDepartments}
-          onChange={(e) => setEditedData({ ...editedData, department: e.target.value })}
+          onChange={(e) => functionToEdit({ ...editedData, department: e.target.value })}
           className="border rounded w-full p-2"
         >
           <option value="">Select Department</option>
