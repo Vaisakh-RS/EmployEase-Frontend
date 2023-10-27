@@ -1,0 +1,20 @@
+.base {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the element based on its own dimensions */
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+    padding-bottom: 25px;
+    z-index: 999; /* Ensure it's on top of other content */
+    pointer-events: auto; /* Allow interactions with the overlay */
+    background-color: rgba(0, 0, 0, 0.5); 
+    border-radius: 10px;
+  }
+  .closeicon{
+    margin-left: 91%;
+  }
+  .employee p{
+    display: inline-block;
+  }
