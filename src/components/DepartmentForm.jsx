@@ -8,6 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ChooseManagerComponent from './ChooseManagerComponent';
+import { CustomToastSuccess, CustomToastError } from './DeleteToast';
 
 
 const DepartmentForm = () => {
@@ -44,6 +45,7 @@ const DepartmentForm = () => {
         return response.json();
       })
       .then((data) => {
+        CustomToastSuccess('Department Successfully Added.');
         console.log('GET request successful:', data);
         setEmployees(data);
       })
@@ -77,9 +79,11 @@ const DepartmentForm = () => {
       if (response.ok) {
         console.log(`DELETE request successful for department with ID ${row.id}`);
         // You might want to remove the deleted department from your state
+        CustomToastSuccess('Department Successfully Deleted.');
         setTableData((prevData) => prevData.filter((item) => item.id !== row.id));
       } else {
         // Request failed, handle the error
+        CustomToastError('Failed to delete department due to active employees.');
         console.error('DELETE request failed:', response.status, response.statusText);
       }
     } catch (error) {

@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import EditModal from './EditEmployeeModal';
+import { CustomToastSuccess, CustomToastError } from './DeleteToast';
 
 
 
@@ -58,6 +59,7 @@ const EmployeeForm = () => {
     fetch(apiUrl, requestOptions)
       .then((response) => {
         if (response.ok) {
+          CustomToastSuccess('Employee Successfully Added.');
           // Request was successful, handle the response here
           setRefresh(!refresh)  
           // Update the tableData state to reflect the changes
@@ -94,11 +96,12 @@ const EmployeeForm = () => {
       .then((response) => {
         if (response.ok) {
           // Request was successful, handle the response here
-  
+          CustomToastSuccess('Employee Details Successfully Deleted.');
           // Remove the deleted employee from the tableData state
           setTableData((prevData) => prevData.filter((item) => item.id !== employee.id));
         } else {
           // Request failed, handle the error
+          CustomToastError('Failed to Delete Employee Details');
           console.error('DELETE request failed:', response.status, response.statusText);
         }
       })
@@ -150,8 +153,10 @@ const EmployeeForm = () => {
 
       if (response.ok) {
         const responseData = await response.json();
+        CustomToastSuccess('Employee Details Successfully Added.');
         setDepartments(responseData); // Update the state with the fetched departments
       } else {
+        CustomToastError('Failed to add Employee Details')
         console.error('GET request failed:', response.status, response.statusText);
       }
     } catch (error) {
