@@ -7,7 +7,7 @@ export default function AppBar()
           <a href="/DepartmentForm" className="border-2 border-sky-500 p-3 rounded-md transition-colors hover:bg-sky-500">Department</a>
         </li>
         <li>
-          <a href="EmployEase-Frontend/src/components/EmployeeForm" className="border-2 border-sky-500 p-3 rounded-md transition-colors hover:bg-sky-500">Employee</a>
+          <a href="/EmployeeForm" className="border-2 border-sky-500 p-3 rounded-md transition-colors hover:bg-sky-500">Employee</a>
         </li>
       </ul>
     </div>
