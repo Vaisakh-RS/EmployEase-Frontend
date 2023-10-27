@@ -7,10 +7,9 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import AppBar from './AppBar';
 import EditModal from './EditEmployeeModal';
 import { CustomToastSuccess, CustomToastError } from './CustomToast';
-
 
 
 const EmployeeForm = () => {
@@ -46,7 +45,7 @@ const EmployeeForm = () => {
   const handleSaveEditedData = () => {
     // Define the API endpoint with the employee ID you want to update
     const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${rowToUpdate.id}`;
-  
+
     // Define the request options for the PUT request
     const requestOptions = {
       method: 'PUT',
@@ -55,7 +54,7 @@ const EmployeeForm = () => {
       },
       body: JSON.stringify(editedData), // Assuming editedData contains the data to send
     };
-  
+
     fetch(apiUrl, requestOptions)
       .then((response) => {
         if (response.ok) {
@@ -67,7 +66,7 @@ const EmployeeForm = () => {
               item.id === editedData.id ? { ...item, ...editedData } : item
             )
           );
-  
+
           // Close the edit modal
           setEditModalOpen(false);
         } else {
@@ -83,14 +82,14 @@ const EmployeeForm = () => {
 
   const handleDelete = (employee) => {
     const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${employee.id}`;
-  
+
     const requestOptions = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json', 
       },
     };
-  
+
     fetch(apiUrl, requestOptions)
       .then((response) => {
         if (response.ok) {
@@ -152,7 +151,6 @@ const EmployeeForm = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        
         setDepartments(responseData); // Update the state with the fetched departments
       } else {
         console.error('GET request failed:', response.status, response.statusText);
@@ -185,9 +183,8 @@ const EmployeeForm = () => {
       body: JSON.stringify(formData), // Assuming formData contains the data to send
     });
 
-    if (response.ok) {
+    if (response.ok) { setRefresh(!refresh)
       // Request was successful, handle the response here
-      setRefresh(!refresh)
       const responseData = await response.json(); // Parse the response if it returns JSON
       CustomToastSuccess('Employee Details Successfully Added.');
       console.log('POST request successful:', responseData);
@@ -228,13 +225,17 @@ useEffect(() => {
       department:'',
     });
   };
-
   function convertToDepName(depId) {
     const department = departments.find((dep) => dep.id === depId);
     return department ? department.name : ''; // Return the department name if found, otherwise an empty string
   }
+
+
  
+  
 return (
+  <>
+   <AppBar/>  
     <div className="form-container">
       <form onSubmit={handleSubmit} className='mb-10'>
       {/*<div className="form-input">
@@ -317,7 +318,8 @@ return (
             )}
           
         </div>
-      
+        <p>Years of Experience:{formData.yearsOfExperience}</p>
+
         <div className='form-input'>
           <select name='department' value={formData.department} onChange={handleChange} onClick={getDepartments} className='border rounded p-2 w-70'>
             <option value="">Select Department</option>
@@ -327,7 +329,9 @@ return (
               </option>
             ))}
           </select>
+          <p>Selected Department: {formData.department}</p>
         </div>
+
         <div>
           <button
             type="submit"
@@ -388,6 +392,7 @@ return (
         </TableContainer>
       )}
     </div>
+    </>
   );
   
 };

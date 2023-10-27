@@ -30,17 +30,15 @@ const ChooseManagerComponent = ({ selectedDepId, setChooseManager }) => {
       });
   }
 
-
-
   function assignManager(employee) {
     // Create a copy of the department data with the updated managerId
     const updatedDepartmentData = {
       managerId:employee.id,
     };
-  
+
     // Define the API endpoint with the department ID you want to update
     const apiUrl = `https://employease-backend-production.up.railway.app/api/departments/${selectedDepId}/`;
-  
+
     // Define the request options for the PUT request
     const requestOptions = {
       method: 'PUT',
@@ -49,7 +47,7 @@ const ChooseManagerComponent = ({ selectedDepId, setChooseManager }) => {
       },
       body: JSON.stringify(updatedDepartmentData), // Convert data to JSON
     };
-  
+
     fetch(apiUrl, requestOptions)
       .then((response) => {
         if (!response.ok) {
@@ -100,8 +98,7 @@ const ChooseManagerComponent = ({ selectedDepId, setChooseManager }) => {
                   <p className="text-lg font-semibold">{employee.name}</p>
                   <p>Experience: {employee.yearsOfExperience} years</p>
                 </div>
-                <button
-                onClick={()=>{assignManager(employee)}}
+                <button onClick={()=>{assignManager(employee)}}
                   className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
                 >
                   Assign as Manager

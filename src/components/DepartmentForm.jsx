@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ChooseManagerComponent from './ChooseManagerComponent';
 import { CustomToastSuccess, CustomToastError } from './CustomToast';
-
+import AppBar from './AppBar';
 
 const DepartmentForm = () => {
   const [ChooseManager,setChooseManager] = useState(false)
@@ -21,8 +21,6 @@ const DepartmentForm = () => {
     location: '',
     //managerId:''
   });
-
-  
 
   const [tableData,setTableData]=useState([]);
   const [employees, setEmployees] = useState([]);
@@ -45,17 +43,16 @@ const DepartmentForm = () => {
         return response.json();
       })
       .then((data) => {
-        
+
         console.log('GET request successful:', data);
         setEmployees(data);
-        
+
       })
       .catch((error) => {
         console.error('GET request error:', error);
         throw error;
       });
   }
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,13 +76,13 @@ const DepartmentForm = () => {
   
       if (response.ok) {
         console.log(`DELETE request successful for department with ID ${row.id}`);
-        // You might want to remove the deleted department from your state
         CustomToastSuccess('Department Successfully Deleted.');
+        // You might want to remove the deleted department from your state
         setTableData((prevData) => prevData.filter((item) => item.id !== row.id));
       } else {
         // Request failed, handle the error
-        CustomToastError('Failed to delete department due to active employees.');
         console.error('DELETE request failed:', response.status, response.statusText);
+        CustomToastError('Failed to delete department due to active employees.');
       }
     } catch (error) {
       // Handle any network or other errors
@@ -107,7 +104,6 @@ const DepartmentForm = () => {
       if (response.ok) {
         const responseData = await response.json();
         setTableData(responseData); // Update the state with the fetched departments
-        
       } else {
         console.error('GET request failed:', response.status, response.statusText);
       }
@@ -120,10 +116,10 @@ const DepartmentForm = () => {
     if (employees.length === 0) {
       return 'Loading...'; // You can return a loading message or any other appropriate value
     }
-  
+
     // Find the employee with the matching managerId
     const employee = employees.find((employee) => employee.id === managerId);
-  
+
     if (employee) {
       return employee.name; // Return the employee name if found
     } else {
@@ -145,13 +141,15 @@ const DepartmentForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS' // Adjust the content type as needed
         },
         body: JSON.stringify(formData), // Convert formData to JSON
       });
 
       if (response.ok) {
-        // Request was successful, handle the response here
         setRefresh(!refresh)
+        // Request was successful, handle the response here
         const responseData = await response.json(); // Parse the response if it returns JSON
         console.log('POST request successful:', responseData);
         CustomToastSuccess('Department Successfully Added.');
@@ -167,8 +165,10 @@ const DepartmentForm = () => {
 
   const handleClear = () => {
     setFormData({
+        //departmentId: '',
         name: '',
         location: '',
+        //managerId:''
     });
   };
   useEffect(() => {
@@ -177,12 +177,16 @@ const DepartmentForm = () => {
   }, [ChooseManager,refresh]);
  
 
+const choosemanager=()=>{
+  
+}
 
 const handleUpdate=()=>{
   
 }
 
 return (
+  <> <AppBar/>
     <div className="form-container">
       <div>
         {ChooseManager ? (
@@ -276,6 +280,7 @@ return (
         </TableContainer>
       )}
     </div>
+    </>
   );
   
 };
