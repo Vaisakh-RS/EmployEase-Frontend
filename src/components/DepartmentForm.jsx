@@ -7,9 +7,12 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import ChooseManagerComponent from './ChooseManagerComponent';
 
 
 const DepartmentForm = () => {
+  const [ChooseManager,setChooseManager] = useState(false)
+  const [selectedDepId,setSelectedDepId] = useState()
   const [formData, setFormData] = useState({
     //departmentId: '',
     name: '',
@@ -121,7 +124,7 @@ const DepartmentForm = () => {
   useEffect(() => {
     getDepartments();
   }, []);
-
+ 
 
 const choosemanager=()=>{
   
@@ -133,7 +136,12 @@ const handleUpdate=()=>{
 
 return (
     <div className="form-container">
-      <form onSubmit={handleSubmit} className='mb-10'>
+      <div>
+        {ChooseManager ? (
+          <ChooseManagerComponent selectedDepId={selectedDepId} setChooseManager={setChooseManager}/>
+       ) : null}
+      </div>
+      <form onSubmit={handleSubmit}>
         <div className="form-input">
           <input
             type="text"
@@ -208,7 +216,10 @@ return (
                   </TableCell>
                   </TableCell>
                   <TableCell>
-                    <button onClick={() => choosemanager(row)}>Choose Manager</button>
+                    <button onClick={() => {
+                      setChooseManager(true)
+                      setSelectedDepId(row.id)
+                      }}>Choose Manager</button>
                   </TableCell>
                 </TableRow>
               ))}
