@@ -141,8 +141,7 @@ const DepartmentForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin':'*',
-          'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS' // Adjust the content type as needed
+          // Adjust the content type as needed
         },
         body: JSON.stringify(formData), // Convert formData to JSON
       });
