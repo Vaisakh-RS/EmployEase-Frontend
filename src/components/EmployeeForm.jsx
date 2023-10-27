@@ -76,7 +76,7 @@ const EmployeeForm = () => {
       // Update the state with the calculated experience
       setFormData({
         ...formData,
-        yearsOfExperience: Math.floor(yearsOfExperience)
+        yearsOfExperience: Math.floor(yearsOfExperience).toFixed(2)
       });
     }
   }
@@ -288,7 +288,7 @@ return (
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow className='bg-slate-200'>
-                <TableCell >Name</TableCell>
+                <TableCell className='font-sans' >Name</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Contact Number</TableCell>
                 <TableCell>Date of Joining</TableCell>

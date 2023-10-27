@@ -196,7 +196,7 @@ return (
         <TableContainer component={Paper} className='w-20'>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-              <TableRow className='bg-slate-200'>
+              <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell>Location</TableCell>
                 <TableCell>Manager</TableCell>
