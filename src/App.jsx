@@ -11,6 +11,7 @@ function App() {
       <Routes>
         <Route path="EmployEase-Frontend/src/components/EmployeeForm" element={<EmployeeForm />} />
         <Route path="/DepartmentForm" element={<DepartmentForm />} />
+        
       </Routes>
     </Router>
   );

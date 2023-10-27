@@ -1,5 +1,14 @@
-import { useEffect, useState } from 'react';
-import "../styles/formStyle.css"
+import {  useState } from 'react';
+import "../styles/formStyle.css";
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+
 
 const EmployeeForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +20,8 @@ const EmployeeForm = () => {
     yearsOfExperience: '',
     department:''
   });
+
+  const [tableData,setTableData]=useState([]);
 
   const [departments, setDepartments] = useState([]);
 
@@ -39,7 +50,7 @@ const EmployeeForm = () => {
       // Update the state with the calculated experience
       setFormData({
         ...formData,
-        yearsOfExperience: yearsOfExperience.toFixed(2), // You can adjust the decimal places as needed
+        yearsOfExperience: Math.floor(yearsOfExperience)
       });
     }
   }
@@ -66,9 +77,6 @@ const EmployeeForm = () => {
     }
   }
 
-
-  
-
   const handleDateInputFocus=()=>{
     setIsDateInput(true);
   }
@@ -78,6 +86,7 @@ const EmployeeForm = () => {
   };
   const handleSubmit = async (e) => {
   e.preventDefault();
+  setTableData((prevData) => [...prevData, formData]);
   console.log(formData)
 
   const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees/';
@@ -103,6 +112,7 @@ const EmployeeForm = () => {
     // Handle any network or other errors
     console.error('POST request error:', error);
   }
+
 };
 
   const handleClear = () => {
@@ -234,6 +244,34 @@ return (
           </button>
         </div>
       </form>
+      {tableData.length > 0 && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Contact Number</TableCell>
+                <TableCell>Date of Joining</TableCell>
+                <TableCell>Years of Experience</TableCell>
+                <TableCell>Department</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableData.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.email}</TableCell>
+                  <TableCell>{row.contactNumber}</TableCell>
+                  <TableCell>{row.dateOfJoining}</TableCell>
+                  <TableCell>{row.yearsOfExperience}</TableCell>
+                  <TableCell>{row.department}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </div>
   );
   
