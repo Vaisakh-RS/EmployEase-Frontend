@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import {  useEffect, useState } from 'react';
 import "../styles/formStyle.css";
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -7,6 +7,8 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+
+import EditModal from './EditEmployeeModal';
 
 
 
@@ -21,11 +23,35 @@ const EmployeeForm = () => {
     department:''
   });
 
+
   const [tableData,setTableData]=useState([]);
 
   const [departments, setDepartments] = useState([]);
 
   const [isDateInput, setIsDateInput] = useState(false);
+
+  //To handle the modal
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [dataToEdit, setDataToEdit] = useState(null);
+
+
+  const handleUpdate = (row) => {
+    setDataToEdit(row);
+    setEditModalOpen(true);
+  };
+
+  const handleSaveEditedData = (editedData) => {
+    // Implement the logic to save the edited data to your data source
+    // Update the table data or make an API request to save the changes
+    // Close the modal
+    setEditModalOpen(false);
+  };
+
+  const handleDelete = (row) => {
+    // Implement the logic to delete the employee
+    // Update the table data or make an API request to delete the employee
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -86,7 +112,7 @@ const EmployeeForm = () => {
   };
   const handleSubmit = async (e) => {
   e.preventDefault();
-  setTableData((prevData) => [...prevData, formData]);  //useeffect
+   //useeffect
   console.log(formData)
 
   const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees/';
@@ -118,6 +144,19 @@ const EmployeeForm = () => {
 
 };
 
+//To display the employees data from db
+useEffect(() => {
+  const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees';
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      setTableData(data);
+    })
+    .catch((error) => {
+      console.error('Error fetching employee data:', error);
+    });
+}, []);
+
   const handleClear = () => {
     setFormData({
       //employeeId: '',
@@ -130,18 +169,13 @@ const EmployeeForm = () => {
     });
   };
 
-const handleUpdate=()=>{
 
-}
 
-const handleDelete=()=>{
-
-}
  
   
 return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='mb-10'>
       {/*<div className="form-input">
           <input
             type="text"
@@ -256,8 +290,8 @@ return (
         <TableContainer component={Paper} className='w-20'>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
+              <TableRow className='bg-slate-200'>
+                <TableCell >Name</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Contact Number</TableCell>
                 <TableCell>Date of Joining</TableCell>
@@ -276,11 +310,20 @@ return (
                   <TableCell>{row.yearsOfExperience}</TableCell>
                   <TableCell>{row.department}</TableCell>
                   <TableCell>
-                    <button onClick={() => handleUpdate(row)} className='border'>Update</button>
-                    <button onClick={() => handleDelete(row)}>Delete</button>
+                    <button onClick={() => handleUpdate(row)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Update</button>
+                    <button onClick={() => handleDelete(row)} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Delete</button>
                   </TableCell>
                 </TableRow>
               ))}
+
+              {isEditModalOpen && (
+                  <EditModal
+                    isOpen={isEditModalOpen}
+                    onRequestClose={() => setEditModalOpen(false)}
+                    dataToEdit={dataToEdit}
+                    onSave={handleSaveEditedData}
+                  />
+            )}
             </TableBody>
           </Table>
         </TableContainer>
