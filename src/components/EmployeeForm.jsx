@@ -195,7 +195,7 @@ useEffect(() => {
 return (
   <>
    <AppBar/>  
-    <div className="form-container min-h-[100vh] p-4 sm:p-6 lg:p-8">
+    <div className="form-container min-h-[100vh] p-4 sm:p-6 w-full overflow-hidden lg:p-8 ">
       <form onSubmit={handleSubmit} className='mb-10'>
         <div className="form-input">
           
