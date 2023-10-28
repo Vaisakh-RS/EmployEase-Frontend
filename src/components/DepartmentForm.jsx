@@ -17,10 +17,8 @@ const DepartmentForm = () => {
   const [selectedDepId,setSelectedDepId] = useState()
   const [refresh,setRefresh] = useState(false)
   const [formData, setFormData] = useState({
-    //departmentId: '',
     name: '',
     location: '',
-    //managerId:''
   });
 
   const [tableData,setTableData]=useState([]);
@@ -37,7 +35,7 @@ const DepartmentForm = () => {
     const requestOptions = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json', // Adjust the content type as needed
+        'Content-Type': 'application/json', 
       },
     };
 
@@ -71,29 +69,29 @@ const DepartmentForm = () => {
 
 
   const handleDelete = async (row) => {
-    // Define the API endpoint with the department ID you want to delete
+ 
     const apiUrl = `https://employease-backend-production.up.railway.app/api/departments/${row.id}`;
   
     try {
       const response = await fetch(apiUrl, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json', // Adjust the content type as needed
+          'Content-Type': 'application/json', 
         },
       });
   
       if (response.ok) {
         console.log(`DELETE request successful for department with ID ${row.id}`);
         CustomToastSuccess('Department Successfully Deleted.');
-        // You might want to remove the deleted department from your state
+  
         setTableData((prevData) => prevData.filter((item) => item.id !== row.id));
       } else {
-        // Request failed, handle the error
+
         console.error('DELETE request failed:', response.status, response.statusText);
         CustomToastError('Failed to delete department due to active employees.');
       }
     } catch (error) {
-      // Handle any network or other errors
+
       console.error('DELETE request error:', error);
     }
   };
@@ -107,13 +105,13 @@ const DepartmentForm = () => {
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json', // Adjust the content type as needed
+          'Content-Type': 'application/json', 
         },
       });
 
       if (response.ok) {
         const responseData = await response.json();
-        setTableData(responseData); // Update the state with the fetched departments
+        setTableData(responseData); 
       } else {
         console.error('GET request failed:', response.status, response.statusText);
       }
@@ -122,18 +120,18 @@ const DepartmentForm = () => {
     }
   }
   function convertManagerIdToName(managerId) {
-    // Check if employees data is available
+  
     if (employees.length === 0) {
-      return 'Loading...'; // You can return a loading message or any other appropriate value
+      return 'Loading...'; 
     }
 
-    // Find the employee with the matching managerId
+   
     const employee = employees.find((employee) => employee.id === managerId);
 
     if (employee) {
-      return employee.name; // Return the employee name if found
+      return employee.name; 
     } else {
-      return 'Manager not Assigned'; // Return a message if manager is not found
+      return 'Manager not Assigned'; 
     }
   }
 
@@ -146,61 +144,58 @@ const DepartmentForm = () => {
 
   
   const handleSave = (editedData) => {
-    // Here, you can implement the logic to save the edited data.
-    // You may need to make an API request or update the state, depending on your application's requirements.
+    
   
-    // Make an API request to update the department data
+
     const apiUrl = `https://employease-backend-production.up.railway.app/api/departments/${editedData.id}`;
   
     const requestOptions = {
-      method: 'PUT', // Use PUT method for updating data
+      method: 'PUT', 
       headers: {
-        'Content-Type': 'application/json', // Adjust the content type as needed
+        'Content-Type': 'application/json', 
       },
-      body: JSON.stringify(editedData), // Convert editedData to JSON
+      body: JSON.stringify(editedData), 
     };
   
     fetch(apiUrl, requestOptions)
       .then((response) => {
         if (response.ok) {
-          // Request was successful, handle the response here
+ 
           console.log('PUT request successful');
           CustomToastSuccess('Department Successfully Updated.');
   
-          // Update the state with the edited data
           setTableData((prevData) =>
             prevData.map((item) =>
               item.id === editedData.id ? editedData : item
             )
           );
   
-          // Close the modal
+
           setEditModalOpen(false);
         } else {
-          // Request failed, handle the error
+
           console.error('PUT request failed:', response.status, response.statusText);
           CustomToastError('Failed to update department.');
   
-          // Close the modal or perform other actions as needed
+
           setEditModalOpen(false);
         }
       })
       .catch((error) => {
-        // Handle any network or other errors
+
         console.error('PUT request error:', error);
   
-        // Close the modal or perform other actions as needed
-        setEditModalOpen(false);
+        setEditModalOpen(false)
       });
   };
   
 
-  //handlesubmit
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //setTableData((prevData) => [...prevData, formData]);
+
     console.log(formData)
-    // Define the API endpoint
+
     const apiUrl = 'https://employease-backend-production.up.railway.app/api/departments/'; 
 
     try {
@@ -208,19 +203,19 @@ const DepartmentForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Adjust the content type as needed
+
         },
-        body: JSON.stringify(formData), // Convert formData to JSON
+        body: JSON.stringify(formData), 
       });
 
       if (response.ok) {
         setRefresh(!refresh)
-        // Request was successful, handle the response here
-        const responseData = await response.json(); // Parse the response if it returns JSON
+
+        const responseData = await response.json(); 
         console.log('POST request successful:', responseData);
         CustomToastSuccess('Department Successfully Added.');
       } else {
-        // Request failed, handle the error
+  
         
         console.error('POST request failed:', response.status, response.statusText);
         CustomToastError('Creation of new Department failed');

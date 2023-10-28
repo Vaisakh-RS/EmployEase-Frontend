@@ -9,7 +9,7 @@ const ChooseManagerComponent = ({ selectedDepId, setChooseManager }) => {
     const requestOptions = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json', // Adjust the content type as needed
+        'Content-Type': 'application/json', 
       },
     };
 
@@ -31,21 +31,18 @@ const ChooseManagerComponent = ({ selectedDepId, setChooseManager }) => {
   }
 
   function assignManager(employee) {
-    // Create a copy of the department data with the updated managerId
     const updatedDepartmentData = {
       managerId:employee.id,
     };
-
-    // Define the API endpoint with the department ID you want to update
     const apiUrl = `https://employease-backend-production.up.railway.app/api/departments/${selectedDepId}/`;
 
-    // Define the request options for the PUT request
+
     const requestOptions = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json', // Adjust the content type as needed
+        'Content-Type': 'application/json', 
       },
-      body: JSON.stringify(updatedDepartmentData), // Convert data to JSON
+      body: JSON.stringify(updatedDepartmentData),
     };
 
     fetch(apiUrl, requestOptions)

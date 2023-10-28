@@ -32,7 +32,6 @@ const EmployeeForm = () => {
 
   //To handle the modal
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [editedData, setEditedData] = useState(formData);
   const [rowToUpdate, setRowToUpdate] = useState()
   const [refresh,setRefresh]= useState(false);
 
@@ -42,44 +41,7 @@ const EmployeeForm = () => {
     setRowToUpdate(row);
   };
 
-  // const handleSaveEditedData = () => {
-  //   // Define the API endpoint with the employee ID you want to update
-  //   const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${rowToUpdate.id}`;
-
-  //   // Define the request options for the PUT request
-  //   const requestOptions = {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json', // Adjust the content type as needed
-  //     },
-  //     body: JSON.stringify(editedData), // Assuming editedData contains the data to send
-  //   };
-
-  //   fetch(apiUrl, requestOptions)
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         // Request was successful, handle the response here
-  //         setRefresh(!refresh)  
-  //         // Update the tableData state to reflect the changes
-  //         setTableData((prevData) =>
-  //           prevData.map((item) =>
-  //             item.id === editedData.id ? { ...item, ...editedData } : item
-  //           )
-  //         );
-
-  //         // Close the edit modal
-  //         setEditModalOpen(false);
-  //       } else {
-  //         // Request failed, handle the error
-  //         console.error('PUT request failed:', response.status, response.statusText);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       // Handle any network or other errors
-  //       console.error('PUT request error:', error);
-  //     });
-  // };
-
+ 
   const handleDelete = (employee) => {
     const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${employee.id}`;
 
@@ -145,7 +107,7 @@ const EmployeeForm = () => {
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json', // Adjust the content type as needed
+          'Content-Type': 'application/json', 
         },
       });
 
@@ -169,8 +131,7 @@ const EmployeeForm = () => {
   };
   const handleSubmit = async (e) => {
   e.preventDefault();
-   //useeffect
-  console.log(formData)
+  
 
   const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees/';
 
@@ -180,7 +141,7 @@ const EmployeeForm = () => {
       headers: {
           'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData), // Assuming formData contains the data to send
+      body: JSON.stringify(formData), 
     });
 
     if (response.ok) { setRefresh(!refresh)
@@ -228,7 +189,7 @@ useEffect(() => {
   };
   function convertToDepName(depId) {
     const department = departments.find((dep) => dep.id === depId);
-    return department ? department.name : ''; // Return the department name if found, otherwise an empty string
+    return department ? department.name : ''; 
   }
 
 return (
@@ -236,17 +197,6 @@ return (
    <AppBar/>  
     <div className="form-container min-h-[100vh]">
       <form onSubmit={handleSubmit} className='mb-10'>
-      {/*<div className="form-input">
-          <input
-            type="text"
-            name="employeeId"
-            value={formData.employeeId}
-            onChange={handleChange}
-            required
-            placeholder="Employee ID"
-            className="border rounded p-2"
-          />
-      </div>*/}
         <div className="form-input">
           
           <input

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { CustomToastError, CustomToastSuccess } from './CustomToast';
 
 const UpdateEmployee = ({onClose,rowToUpdate,isOpen,onRequestClose}) => {
   const [formData, setFormData] = useState(rowToUpdate);
@@ -52,74 +53,17 @@ const UpdateEmployee = ({onClose,rowToUpdate,isOpen,onRequestClose}) => {
         // Request was successful
         // You can handle the success response here, e.g., show a success message
         onClose(); // Close the modal or navigate to another page
+        CustomToastSuccess("Employee Details Updated")
       } else {
         // Request failed, handle the error
         console.error('POST request failed:', response.status, response.statusText);
+        CustomToastError("Employee Details cannot be Updated");
       }
     } catch (error) {
       // Handle any network or other errors
       console.error('POST request error:', error);
     }
   };
-
-  // return (
-  //   <div>
-  //     <form onSubmit={handleSubmit}>
-  //       <div className="form-input">
-  //         <label>Name:</label>
-  //         <input
-  //           type="text"
-  //           name="name"
-  //           value={formData.name}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //       </div>
-  //       <div className="form-input">
-  //         <label>Email:</label>
-  //         <input
-  //           type="email"
-  //           name="email"
-  //           value={formData.email}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //       </div>
-  //       <div className="form-input">
-  //         <label>Contact Number:</label>
-  //         <input
-  //           type="text"
-  //           name="contactNumber"
-  //           value={formData.contactNumber}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //       </div>
-  //       <div className="form-input">
-  //         <label>Date of Joining:</label>
-  //         <input
-  //           type="date"
-  //           name="dateOfJoining"
-  //           value={formData.dateOfJoining}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //       </div>
-  //       <div className="form-input">
-  //         <label>Department:</label>
-  //         <input
-  //           type="text"
-  //           name="department"
-  //           value={formData.department}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //       </div>
-  //       <button type="submit" onClick={findExperience}>Submit</button>
-  //       <button onClick={onClose}>Close</button>
-  //     </form>
-  //   </div>
-  // );
 
   return (
     <Modal
@@ -143,8 +87,8 @@ const UpdateEmployee = ({onClose,rowToUpdate,isOpen,onRequestClose}) => {
         padding: '0',
         border: 'none',
         background: 'none',
-        width: '70%', // Adjust the width as needed
-        maxWidth: '400px', // Adjust the maximum width as needed
+        width: '70%', 
+        maxWidth: '400px', 
       },
     }}
   >
