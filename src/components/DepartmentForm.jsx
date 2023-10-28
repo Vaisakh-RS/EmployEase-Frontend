@@ -112,7 +112,7 @@ const DepartmentForm = () => {
       });
 
       if (response.ok) {
-        const responseData = await response.json();ger
+        const responseData = await response.json();
         setTableData(responseData); // Update the state with the fetched departments
       } else {
         console.error('GET request failed:', response.status, response.statusText);
@@ -296,7 +296,7 @@ return (
           onRequestClose={() => setEditModalOpen(false)}
           departmentToEdit={departmentToEdit}
           managers={managers}/> //fix here
-          
+
     )} 
     </>
   );
