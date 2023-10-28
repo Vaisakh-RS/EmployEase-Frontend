@@ -375,15 +375,16 @@ return (
                 </TableRow>
               ))}
 
-                {isEditModalOpen && (
-                  <UpdateEmployee 
-                  onClose ={()=>{setEditModalOpen(false)}}
-                  rowToUpdate = {rowToUpdate}
-                  />                    
-              )}
+                
             </TableBody>
           </Table>
         </TableContainer>
+      )}
+      {isEditModalOpen && (
+          <UpdateEmployee 
+          onClose ={()=>{setEditModalOpen(false)}}
+          rowToUpdate = {rowToUpdate}
+          />                    
       )}
     </div>
     </>

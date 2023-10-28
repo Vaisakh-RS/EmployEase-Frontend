@@ -9,7 +9,6 @@ const UpdateEmployee = ({onClose,rowToUpdate}) => {
       ...formData,
       [name]: value,
     });
-    findExperience();
   };
 
   function findExperience() {
@@ -115,7 +114,7 @@ const UpdateEmployee = ({onClose,rowToUpdate}) => {
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={findExperience}>Submit</button>
         <button onClick={onClose}>Close</button>
       </form>
     </div>
