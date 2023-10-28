@@ -33,7 +33,7 @@ function Home() {
           <div className="text-center sm:text-left mt-4 sm:mt-0 lg:mt-9 home-btns">
             <Button className="btns" buttonStyle="btn--primary" buttonSize="btn--large" />
           </div>
-          <div className="mt-8 font-black text-center sm:text-left">
+          <div className="mt-8 text-center sm:text-left">
             <h2 className="text-base sm:text-lg">
               An easy-to-use platform for storing your company's employee and department details.
             </h2>
