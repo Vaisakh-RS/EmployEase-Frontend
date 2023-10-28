@@ -10,6 +10,9 @@ import Paper from '@mui/material/Paper';
 import ChooseManagerComponent from './ChooseManagerComponent';
 import { CustomToastSuccess, CustomToastError } from './CustomToast';
 import AppBar from './AppBar';
+import EditDepartmentModal from './EditEmployeeModal';
+import UpdateDepartment from './UpdateDepartment';
+
 
 const DepartmentForm = () => {
   const [ChooseManager,setChooseManager] = useState(false)
@@ -21,6 +24,8 @@ const DepartmentForm = () => {
     location: '',
     //managerId:''
   });
+
+  const [updatePage,setUpdatePage] = useState(false)
 
   const [tableData,setTableData]=useState([]);
   const [employees, setEmployees] = useState([]);
@@ -179,17 +184,23 @@ const DepartmentForm = () => {
   }, [ChooseManager,refresh]);
  
 
-const choosemanager=()=>{
-  
-}
 
 const handleUpdate=()=>{
-  
+  setUpdatePage(true);
 }
 
 return (
   <> <AppBar/>
     <div className="form-container min-h-[100vh]">
+      
+      
+      <div>
+        {updatePage&&(
+          <div>
+          <UpdateDepartment onClose = {()=>{setUpdatePage(false)}} />
+          </div>
+        )}
+      </div>
       <div>
         {ChooseManager ? (
           <ChooseManagerComponent selectedDepId={selectedDepId} setChooseManager={setChooseManager}/>
@@ -218,18 +229,6 @@ return (
             className="border rounded p-2"
           />
         </div>
-        {/*<div className="form-input">
-          
-          <input
-            type="text"
-            name="managerId"
-            value={formData.contactNumber}
-            onChange={handleChange}
-            required
-            placeholder='Manager ID'
-            className="border rounded p-2"
-          />
-      </div>*/}
         <div>
           <button
             type="submit"

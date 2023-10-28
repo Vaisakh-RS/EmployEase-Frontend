@@ -239,17 +239,6 @@ return (
    <AppBar/>  
     <div className="form-container min-h-[100vh]">
       <form onSubmit={handleSubmit} className='mb-10'>
-      {/*<div className="form-input">
-          <input
-            type="text"
-            name="employeeId"
-            value={formData.employeeId}
-            onChange={handleChange}
-            required
-            placeholder="Employee ID"
-            className="border rounded p-2"
-          />
-      </div>*/}
         <div className="form-input">
           
           <input
