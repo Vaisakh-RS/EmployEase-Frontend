@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import AppBar from './AppBar';
 import EditModal from './EditEmployeeModal';
 import { CustomToastSuccess, CustomToastError } from './CustomToast';
+import UpdateEmployee from './UpdateEmployee';
 
 
 const EmployeeForm = () => {
@@ -367,12 +368,8 @@ return (
               ))}
 
               {isEditModalOpen && (
-                  <EditModal
-                    isOpen={isEditModalOpen}
-                    onRequestClose={() => setEditModalOpen(false)}
-                    editedData={editedData}
-                    functionToEdit={setEditedData}
-                    onSave={handleSaveEditedData}
+                  <UpdateEmployee
+                    Close = {() => {setEditModalOpen(false)}}
                   />
             )}
             </TableBody>
