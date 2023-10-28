@@ -318,8 +318,8 @@ return (
                   <TableCell>{row.yearsOfExperience}</TableCell>
                   <TableCell>{convertToDepName(row.department)}</TableCell>
                   <TableCell>
-                    <button onClick={() => handleUpdate(row)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Update</button>
-                    <button onClick={() => handleDelete(row)} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Delete</button>
+                    <button onClick={() => handleUpdate(row)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2 sm:p-4">Update</button>
+                    <button onClick={() => handleDelete(row)} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2 sm:p-2">Delete</button>
                   </TableCell>
                 </TableRow>
               ))}
