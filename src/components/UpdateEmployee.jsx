@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const UpdateEmployee = ({onClose,rowToUpdate}) => {
+const UpdateEmployee = ({onClose,rowToUpdate,departments}) => {
   const [formData, setFormData] = useState(rowToUpdate);
 
   const handleChange = (e) => {
@@ -104,15 +104,15 @@ const UpdateEmployee = ({onClose,rowToUpdate}) => {
             required
           />
         </div>
-        <div className="form-input">
-          <label>Department:</label>
-          <input
-            type="text"
-            name="department"
-            value={formData.department}
-            onChange={handleChange}
-            required
-          />
+        <div className='form-input'>
+          <select name='department' value={formData.department} onChange={handleChange}  className='border rounded p-2 w-70'>
+            <option value="">Select Department</option>
+            {departments.map((department, index) => (
+              <option key={index} value={department.id}>
+                {department.name}
+              </option>
+            ))}
+          </select>
         </div>
         <button type="submit" onClick={findExperience}>Submit</button>
         <button onClick={onClose}>Close</button>

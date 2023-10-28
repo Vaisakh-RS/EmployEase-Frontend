@@ -384,6 +384,7 @@ return (
           <UpdateEmployee 
           onClose ={()=>{setEditModalOpen(false)}}
           rowToUpdate = {rowToUpdate}
+          departments={departments}
           />                    
       )}
     </div>
