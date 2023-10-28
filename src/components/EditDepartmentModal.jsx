@@ -2,6 +2,7 @@
 import React, { useState,useEffect } from 'react';
 import Modal from 'react-modal';
 
+
 const customStyles = {
   content: {
     top: '50%',
@@ -20,12 +21,11 @@ const EditDepartmentModal = ({ isOpen, onRequestClose, departmentToEdit, onSave 
   const [editedData, setEditedData] = useState(departmentToEdit);
 
   useEffect(() => {
-    setEditedData(departmentToEdit); // Update local state when departmentToEdit changes
+    setEditedData(departmentToEdit); 
     console.log(editedData);
   }, [departmentToEdit]);
 
   const handleSave = () => {
-    console.log(editedData);
     onSave(editedData);
     onRequestClose();
   };
@@ -58,33 +58,18 @@ const EditDepartmentModal = ({ isOpen, onRequestClose, departmentToEdit, onSave 
               className="w-full border border-gray-300 rounded p-2"
             />
           </div>
-          {/* <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Manager:</label>
-            <select
-              value={editedData.managerId}
-              onChange={(e) => setEditedData({ ...editedData, managerId: e.target.value })}
-              className="w-full border border-gray-300 rounded p-2"
-            >
-              <option value="">Select Manager</option>
-              {managers.map((manager) => (
-                <option key={manager.id} value={manager.id}>
-                  {manager.name}
-                </option>
-              ))}
-            </select>
-          </div> */}
           <div className="flex justify-end">
             <button
               onClick={handleSave}
-              className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2"
             >
-              Save
+              Update
             </button>
             <button
               onClick={onRequestClose}
-              className="text-red-500 hover:text-red-700 ml-2"
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
             >
-              Cancel
+              Close
             </button>
           </div>
         </form>
