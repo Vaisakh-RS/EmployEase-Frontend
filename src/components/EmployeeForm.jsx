@@ -333,6 +333,7 @@ return (
           isOpen={isEditModalOpen}
           onClose ={()=>{setEditModalOpen(false)}}
           rowToUpdate = {rowToUpdate}
+          departments={departments}
           />                    
       )}
     </div>
