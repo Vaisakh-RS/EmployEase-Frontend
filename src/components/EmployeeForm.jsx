@@ -191,7 +191,8 @@ const EmployeeForm = () => {
     } else {
       // Request failed, handle the error
       console.error('POST request failed:', response.status, response.statusText);
-      CustomToastError('Failed to add Employee Details')
+      CustomToastError('Failed to add Employee Details.');
+      CustomToastError('Make sure you select a Department.');
     }
   } catch (error) {
     // Handle any network or other errors
@@ -275,7 +276,7 @@ return (
         <div className="form-input">
           
           <input
-            type="text"
+            type="number"
             name="contactNumber"
             value={formData.contactNumber}
             onChange={handleChange}
@@ -318,7 +319,6 @@ return (
             )}
           
         </div>
-        <p>Years of Experience:{formData.yearsOfExperience}</p>
 
         <div className='form-input'>
           <select name='department' value={formData.department} onChange={handleChange} onClick={getDepartments} className='border rounded p-2 w-70'>
@@ -329,7 +329,6 @@ return (
               </option>
             ))}
           </select>
-          <p>Selected Department: {formData.department}</p>
         </div>
 
         <div>

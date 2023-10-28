@@ -30,6 +30,11 @@ function Home () {
       <div className="home-btns">
         <Button className="btns" buttonStyle="btn--primary" buttonSize="btn--large"/>
     </div>
+    <div className="mt-8 font-black">
+      <h2 className="text-xl">
+        An easy-to-use platform for storing your company's employee and department details.
+      </h2>
+    </div>
     </div>
     </>  
   )

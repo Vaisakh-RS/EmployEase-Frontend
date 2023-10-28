@@ -7,10 +7,10 @@ export default function AppBar()
 
 
         <li >
-          <a href="/DepartmentForm" className="border-2 border-sky-500 p-3 rounded-md transition-colors hover:bg-sky-500">Department</a>
+          <a href="/DepartmentForm" className="p-4 rounded-xl transition-all text-white bg-black hover:bg-white hover:text-black hover:scale-105 duration-200 font-bold">Department</a>
         </li>
         <li>
-          <a href="/EmployeeForm" className="border-2 border-sky-500 p-3 rounded-md transition-colors hover:bg-sky-500">Employee</a>
+          <a href="/EmployeeForm" className="p-4 rounded-xl transition-all text-white bg-black hover:bg-white hover:text-black hover:scale-105 duration-200 font-bold">Employee</a>
         </li>
       </ul>
     <div/>
