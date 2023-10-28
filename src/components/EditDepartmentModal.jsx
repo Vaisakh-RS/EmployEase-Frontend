@@ -1,5 +1,5 @@
 //To create the edit department modal after setting up the manager thing
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -10,15 +10,22 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    width: '320px', // Adjust the width as needed
-    padding: '20px', // Add padding
+    width: '320px',
+    padding: '20px', 
   },
 };
 
-const EditDepartmentModal = ({ isOpen, onRequestClose, departmentToEdit, managers, onSave }) => {
+const EditDepartmentModal = ({ isOpen, onRequestClose, departmentToEdit, onSave }) => {
+  console.log("Received departmentToEdit:", departmentToEdit);
   const [editedData, setEditedData] = useState(departmentToEdit);
 
+  useEffect(() => {
+    setEditedData(departmentToEdit); // Update local state when departmentToEdit changes
+    console.log(editedData);
+  }, [departmentToEdit]);
+
   const handleSave = () => {
+    console.log(editedData);
     onSave(editedData);
     onRequestClose();
   };
@@ -51,7 +58,7 @@ const EditDepartmentModal = ({ isOpen, onRequestClose, departmentToEdit, manager
               className="w-full border border-gray-300 rounded p-2"
             />
           </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Manager:</label>
             <select
               value={editedData.managerId}
@@ -65,7 +72,7 @@ const EditDepartmentModal = ({ isOpen, onRequestClose, departmentToEdit, manager
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
           <div className="flex justify-end">
             <button
               onClick={handleSave}

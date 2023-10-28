@@ -143,6 +143,58 @@ const DepartmentForm = () => {
     setDepartmentToEdit(row);
   };
 
+
+  
+  const handleSave = (editedData) => {
+    // Here, you can implement the logic to save the edited data.
+    // You may need to make an API request or update the state, depending on your application's requirements.
+  
+    // Make an API request to update the department data
+    const apiUrl = `https://employease-backend-production.up.railway.app/api/departments/${editedData.id}`;
+  
+    const requestOptions = {
+      method: 'PUT', // Use PUT method for updating data
+      headers: {
+        'Content-Type': 'application/json', // Adjust the content type as needed
+      },
+      body: JSON.stringify(editedData), // Convert editedData to JSON
+    };
+  
+    fetch(apiUrl, requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          // Request was successful, handle the response here
+          console.log('PUT request successful');
+          CustomToastSuccess('Department Successfully Updated.');
+  
+          // Update the state with the edited data
+          setTableData((prevData) =>
+            prevData.map((item) =>
+              item.id === editedData.id ? editedData : item
+            )
+          );
+  
+          // Close the modal
+          setEditModalOpen(false);
+        } else {
+          // Request failed, handle the error
+          console.error('PUT request failed:', response.status, response.statusText);
+          CustomToastError('Failed to update department.');
+  
+          // Close the modal or perform other actions as needed
+          setEditModalOpen(false);
+        }
+      })
+      .catch((error) => {
+        // Handle any network or other errors
+        console.error('PUT request error:', error);
+  
+        // Close the modal or perform other actions as needed
+        setEditModalOpen(false);
+      });
+  };
+  
+
   //handlesubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -193,8 +245,6 @@ const DepartmentForm = () => {
     getEmployees();
   }, [ChooseManager,refresh]);
  
-
-
 return (
   <> <AppBar/>
     <div className="form-container min-h-[100vh]">
@@ -226,18 +276,6 @@ return (
             className="border rounded p-2"
           />
         </div>
-        {/*<div className="form-input">
-          
-          <input
-            type="text"
-            name="managerId"
-            value={formData.contactNumber}
-            onChange={handleChange}
-            required
-            placeholder='Manager ID'
-            className="border rounded p-2"
-          />
-      </div>*/}
         <div>
           <button
             type="submit"
@@ -295,8 +333,9 @@ return (
           isOpen={isEditModalOpen}
           onRequestClose={() => setEditModalOpen(false)}
           departmentToEdit={departmentToEdit}
-          managers={managers}/> //fix here
-
+          onSave={handleSave}
+          /> 
+          
     )} 
     </>
   );
