@@ -20,16 +20,13 @@ const UpdateEmployee = ({onClose,rowToUpdate,departments,isOpen,onRequestClose})
       const joinDate = new Date(dateOfJoining);
       const currentDate = new Date();
   
-      // Calculate the difference in milliseconds
       const difference = currentDate - joinDate;
   
-      // Calculate the number of years of experience
-      const yearsOfExperience = difference / (1000 * 60 * 60 * 24 * 365.25); // Approximate days in a year
+      const yearsOfExperience = difference / (1000 * 60 * 60 * 24 * 365.25); 
   
-      // Update the state with the calculated experience
       setFormData({
         ...formData,
-        yearsOfExperience: Math.floor(yearsOfExperience).toFixed(2)
+        yearsOfExperience: Math.floor(yearsOfExperience)
       });
     }
   }
