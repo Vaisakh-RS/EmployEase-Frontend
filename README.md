@@ -46,7 +46,7 @@ Start the dev server
 ```bash
   npm run dev
 ```
-##Team
+## Team
 
 - [Ijas Iqbal](https://github.com/Ijasiqbal)
 - [Vaisakh R S](https://github.com/Vaisakh-RS)
