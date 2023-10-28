@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import AppBar from './AppBar';
 import EditEmployeeModal from './EditEmployeeModal';
 import { CustomToastSuccess, CustomToastError } from './CustomToast';
+import UpdateEmployee from './UpdateEmployee';
 
 
 const EmployeeForm = () => {
@@ -213,7 +214,7 @@ useEffect(() => {
     .catch((error) => {
       console.error('Error fetching employee data:', error);
     });
-}, [refresh]);
+}, [refresh,isEditModalOpen]);
 
   const handleClear = () => {
     setFormData({
@@ -374,18 +375,16 @@ return (
                 </TableRow>
               ))}
 
-                {isEditModalOpen && (
-                    <EditEmployeeModal
-                      isOpen={isEditModalOpen}
-                      onRequestClose={() => setEditModalOpen(false)}
-                      editedData={editedData}
-                      functionToEdit={setEditedData}
-                      onSave={handleSaveEditedData}
-                    />
-              )}
+                
             </TableBody>
           </Table>
         </TableContainer>
+      )}
+      {isEditModalOpen && (
+          <UpdateEmployee 
+          onClose ={()=>{setEditModalOpen(false)}}
+          rowToUpdate = {rowToUpdate}
+          />                    
       )}
     </div>
     </>
