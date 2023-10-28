@@ -76,15 +76,15 @@ const EditDepartmentModal = ({ isOpen, onRequestClose, departmentToEdit, onSave 
           <div className="flex justify-end">
             <button
               onClick={handleSave}
-              className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2"
             >
-              Save
+              Update
             </button>
             <button
               onClick={onRequestClose}
-              className="text-red-500 hover:text-red-700 ml-2"
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
             >
-              Cancel
+              Close
             </button>
           </div>
         </form>

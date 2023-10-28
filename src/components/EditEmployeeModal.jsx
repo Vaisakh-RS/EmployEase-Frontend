@@ -1,128 +1,231 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-const EditEmployeeModal = ({ isOpen, onRequestClose, departmentData, onSave }) => {
-  const [editedData, setEditedData] = useState({
-    name: '',
-    email: '',
-    contactNumber: '',
-    dateOfJoining: '',
-    department: '',
-  });
+const UpdateEmployee = ({onClose,rowToUpdate,isOpen,onRequestClose}) => {
+  const [formData, setFormData] = useState(rowToUpdate);
 
-  const [departments, setDepartments] = useState([]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-  useEffect(() => {
-    if (isOpen && departmentData) {
-      setEditedData(departmentData);
-    }
-  }, [isOpen, departmentData]);
-
-  async function getDepartments() {
-    const apiUrl = 'https://employease-backend-production.up.railway.app/api/departments/';
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+  function findExperience() {
+    const dateOfJoining = formData.dateOfJoining;
+    
+    if (dateOfJoining) {
+      const joinDate = new Date(dateOfJoining);
+      const currentDate = new Date();
+  
+      // Calculate the difference in milliseconds
+      const difference = currentDate - joinDate;
+  
+      // Calculate the number of years of experience
+      const yearsOfExperience = difference / (1000 * 60 * 60 * 24 * 365.25); // Approximate days in a year
+  
+      // Update the state with the calculated experience
+      setFormData({
+        ...formData,
+        yearsOfExperience: Math.floor(yearsOfExperience).toFixed(2)
       });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        setDepartments(responseData);
-      } else {
-        console.error('GET request failed:', response.status, response.statusText);
-      }
-    } catch (error) {
-      console.error('GET request error:', error);
     }
   }
 
-  const handleSave = () => {
-    onSave(editedData);
-    onRequestClose();
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${formData.id}`; 
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        // Request was successful
+        // You can handle the success response here, e.g., show a success message
+        onClose(); // Close the modal or navigate to another page
+      } else {
+        // Request failed, handle the error
+        console.error('POST request failed:', response.status, response.statusText);
+      }
+    } catch (error) {
+      // Handle any network or other errors
+      console.error('POST request error:', error);
+    }
   };
+
+  // return (
+  //   <div>
+  //     <form onSubmit={handleSubmit}>
+  //       <div className="form-input">
+  //         <label>Name:</label>
+  //         <input
+  //           type="text"
+  //           name="name"
+  //           value={formData.name}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //       </div>
+  //       <div className="form-input">
+  //         <label>Email:</label>
+  //         <input
+  //           type="email"
+  //           name="email"
+  //           value={formData.email}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //       </div>
+  //       <div className="form-input">
+  //         <label>Contact Number:</label>
+  //         <input
+  //           type="text"
+  //           name="contactNumber"
+  //           value={formData.contactNumber}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //       </div>
+  //       <div className="form-input">
+  //         <label>Date of Joining:</label>
+  //         <input
+  //           type="date"
+  //           name="dateOfJoining"
+  //           value={formData.dateOfJoining}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //       </div>
+  //       <div className="form-input">
+  //         <label>Department:</label>
+  //         <input
+  //           type="text"
+  //           name="department"
+  //           value={formData.department}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //       </div>
+  //       <button type="submit" onClick={findExperience}>Submit</button>
+  //       <button onClick={onClose}>Close</button>
+  //     </form>
+  //   </div>
+  // );
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      contentLabel="Edit Modal"
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 bg-white shadow-md rounded px-6 py-4"
-    >
-      <h2 className="text-2xl font-semibold mb-4">Edit Employee Data</h2>
-      <form>
-        <div className="form-input mb-3">
-          <label className="text-lg block">Name:</label>
-          <input
-            type="text"
-            value={editedData.name}
-            onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
-            className="border rounded w-full p-2"
-          />
+    isOpen={isOpen}
+    onRequestClose={onRequestClose}
+    contentLabel="Edit Employee Modal"
+    className="modal"
+    style={{
+      overlay: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      },
+      content: {
+        position: 'relative',
+        top: 'auto',
+        left: 'auto',
+        right: 'auto',
+        bottom: 'auto',
+        padding: '0',
+        border: 'none',
+        background: 'none',
+        width: '70%', // Adjust the width as needed
+        maxWidth: '400px', // Adjust the maximum width as needed
+      },
+    }}
+  >
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold mb-4">Edit Employee</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-600">Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-600">Email:</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-600">Contact Number:</label>
+              <input
+                type="text"
+                name="contactNumber"
+                value={formData.contactNumber}
+                onChange={handleChange}
+                required
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-600">Date of Joining:</label>
+              <input
+                type="date"
+                name="dateOfJoining"
+                value={formData.dateOfJoining}
+                onChange={handleChange}
+                required
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-600">Department:</label>
+              <input
+                type="text"
+                name="department"
+                value={formData.department}
+                onChange={handleChange}
+                required
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="mt-6">
+              <button
+                type="submit"
+                onClick={findExperience}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2"
+              >
+                Update
+              </button>
+              <button
+                onClick={onClose}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                Close
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="form-input mb-3">
-          <label className="text-lg block">Email:</label>
-          <input
-            type="email"
-            value={editedData.email}
-            onChange={(e) => setEditedData({ ...editedData, email: e.target.value })}
-            className="border rounded w-full p-2"
-          />
-        </div>
-        <div className="form-input mb-3">
-          <label className="text-lg block">Contact Number:</label>
-          <input
-            type="text"
-            value={editedData.contactNumber}
-            onChange={(e) => setEditedData({ ...editedData, contactNumber: e.target.value })}
-            className="border rounded w-full p-2"
-          />
-        </div>
-        <div className="form-input mb-3">
-          <label className="text-lg block">Date of Joining:</label>
-          <input
-            type="date"
-            value={editedData.dateOfJoining}
-            onChange={(e) => setEditedData({ ...editedData, dateOfJoining: e.target.value })}
-            className="border rounded w-full p-2"
-          />
-        </div>
-        <div className="form-input mb-3">
-          <label className="text-lg block">Department:</label>
-          <select
-            value={editedData.department}
-            onClick={getDepartments}
-            onChange={(e) => setEditedData({ ...editedData, department: e.target.value })}
-            className="border rounded w-full p-2"
-          >
-            <option value="">Select Department</option>
-            {departments.map((department, index) => (
-              <option key={index} value={department.id}>
-                {department.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex justify-end">
-          <button
-            onClick={handleSave}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover-bg-blue-600 mr-2"
-          >
-            Save
-          </button>
-          <button
-            onClick={onRequestClose}
-            className="bg-red-500 text-white px-4 py-2 rounded hover-bg-red-600"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
-    </Modal>
+      </Modal>
   );
-};
+}
 
-export default EditEmployeeModal;
+
+export default UpdateEmployee;

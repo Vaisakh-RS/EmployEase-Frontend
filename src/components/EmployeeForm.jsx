@@ -8,9 +8,8 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AppBar from './AppBar';
-import EditEmployeeModal from './EditEmployeeModal';
 import { CustomToastSuccess, CustomToastError } from './CustomToast';
-import UpdateEmployee from './UpdateEmployee';
+import UpdateEmployee from './EditEmployeeModal';
 
 
 const EmployeeForm = () => {
@@ -43,43 +42,43 @@ const EmployeeForm = () => {
     setRowToUpdate(row);
   };
 
-  const handleSaveEditedData = () => {
-    // Define the API endpoint with the employee ID you want to update
-    const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${rowToUpdate.id}`;
+  // const handleSaveEditedData = () => {
+  //   // Define the API endpoint with the employee ID you want to update
+  //   const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${rowToUpdate.id}`;
 
-    // Define the request options for the PUT request
-    const requestOptions = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json', // Adjust the content type as needed
-      },
-      body: JSON.stringify(editedData), // Assuming editedData contains the data to send
-    };
+  //   // Define the request options for the PUT request
+  //   const requestOptions = {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json', // Adjust the content type as needed
+  //     },
+  //     body: JSON.stringify(editedData), // Assuming editedData contains the data to send
+  //   };
 
-    fetch(apiUrl, requestOptions)
-      .then((response) => {
-        if (response.ok) {
-          // Request was successful, handle the response here
-          setRefresh(!refresh)  
-          // Update the tableData state to reflect the changes
-          setTableData((prevData) =>
-            prevData.map((item) =>
-              item.id === editedData.id ? { ...item, ...editedData } : item
-            )
-          );
+  //   fetch(apiUrl, requestOptions)
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         // Request was successful, handle the response here
+  //         setRefresh(!refresh)  
+  //         // Update the tableData state to reflect the changes
+  //         setTableData((prevData) =>
+  //           prevData.map((item) =>
+  //             item.id === editedData.id ? { ...item, ...editedData } : item
+  //           )
+  //         );
 
-          // Close the edit modal
-          setEditModalOpen(false);
-        } else {
-          // Request failed, handle the error
-          console.error('PUT request failed:', response.status, response.statusText);
-        }
-      })
-      .catch((error) => {
-        // Handle any network or other errors
-        console.error('PUT request error:', error);
-      });
-  };
+  //         // Close the edit modal
+  //         setEditModalOpen(false);
+  //       } else {
+  //         // Request failed, handle the error
+  //         console.error('PUT request failed:', response.status, response.statusText);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       // Handle any network or other errors
+  //       console.error('PUT request error:', error);
+  //     });
+  // };
 
   const handleDelete = (employee) => {
     const apiUrl = `https://employease-backend-production.up.railway.app/api/employees/${employee.id}`;
@@ -375,13 +374,13 @@ return (
                 </TableRow>
               ))}
 
-                
             </TableBody>
           </Table>
         </TableContainer>
       )}
       {isEditModalOpen && (
           <UpdateEmployee 
+          isOpen={isEditModalOpen}
           onClose ={()=>{setEditModalOpen(false)}}
           rowToUpdate = {rowToUpdate}
           />                    
