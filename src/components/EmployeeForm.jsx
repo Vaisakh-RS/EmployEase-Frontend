@@ -8,7 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AppBar from './AppBar';
-import EditModal from './EditEmployeeModal';
+import EditEmployeeModal from './EditEmployeeModal';
 import { CustomToastSuccess, CustomToastError } from './CustomToast';
 
 
@@ -38,6 +38,7 @@ const EmployeeForm = () => {
 
 
   const handleUpdate = (row) => {
+    console.log("hello");
     setEditModalOpen(true);
     setRowToUpdate(row);
   };
@@ -231,9 +232,6 @@ useEffect(() => {
     return department ? department.name : ''; // Return the department name if found, otherwise an empty string
   }
 
-
- 
-  
 return (
   <>
    <AppBar/>  
@@ -377,15 +375,15 @@ return (
                 </TableRow>
               ))}
 
-              {isEditModalOpen && (
-                  <EditModal
-                    isOpen={isEditModalOpen}
-                    onRequestClose={() => setEditModalOpen(false)}
-                    editedData={editedData}
-                    functionToEdit={setEditedData}
-                    onSave={handleSaveEditedData}
-                  />
-            )}
+                {isEditModalOpen && (
+                    <EditEmployeeModal
+                      isOpen={isEditModalOpen}
+                      onRequestClose={() => setEditModalOpen(false)}
+                      editedData={editedData}
+                      functionToEdit={setEditedData}
+                      onSave={handleSaveEditedData}
+                    />
+              )}
             </TableBody>
           </Table>
         </TableContainer>
