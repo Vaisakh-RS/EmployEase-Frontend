@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import ChooseManagerComponent from './ChooseManagerComponent';
 import { CustomToastSuccess, CustomToastError } from './CustomToast';
 import AppBar from './AppBar';
+import EditDepartmentModal from './EditDepartmentModal';
 
 const DepartmentForm = () => {
   const [ChooseManager,setChooseManager] = useState(false)
@@ -25,6 +26,11 @@ const DepartmentForm = () => {
   const [tableData,setTableData]=useState([]);
   const [employees, setEmployees] = useState([]);
 
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [departmentToEdit, setDepartmentToEdit] = useState(null);
+
+
+
   function getEmployees() {
     const apiUrl = 'https://employease-backend-production.up.railway.app/api/employees/';
 
@@ -34,6 +40,7 @@ const DepartmentForm = () => {
         'Content-Type': 'application/json', // Adjust the content type as needed
       },
     };
+
 
     return fetch(apiUrl, requestOptions)
       .then((response) => {
@@ -61,6 +68,7 @@ const DepartmentForm = () => {
       [name]: value,
     });
   };
+
 
   const handleDelete = async (row) => {
     // Define the API endpoint with the department ID you want to delete
@@ -90,6 +98,8 @@ const DepartmentForm = () => {
     }
   };
 
+  
+
   async function getDepartments() {
     const apiUrl = 'https://employease-backend-production.up.railway.app/api/departments/';
 
@@ -102,7 +112,7 @@ const DepartmentForm = () => {
       });
 
       if (response.ok) {
-        const responseData = await response.json();
+        const responseData = await response.json();ger
         setTableData(responseData); // Update the state with the fetched departments
       } else {
         console.error('GET request failed:', response.status, response.statusText);
@@ -127,6 +137,11 @@ const DepartmentForm = () => {
     }
   }
 
+
+  const handleUpdate = (row) => {
+    setEditModalOpen(true);
+    setDepartmentToEdit(row);
+  };
 
   //handlesubmit
   const handleSubmit = async (e) => {
@@ -179,13 +194,6 @@ const DepartmentForm = () => {
   }, [ChooseManager,refresh]);
  
 
-const choosemanager=()=>{
-  
-}
-
-const handleUpdate=()=>{
-  
-}
 
 return (
   <> <AppBar/>
@@ -282,6 +290,14 @@ return (
         </TableContainer>
       )}
     </div>
+    {isEditModalOpen && departmentToEdit && (
+        <EditDepartmentModal
+          isOpen={isEditModalOpen}
+          onRequestClose={() => setEditModalOpen(false)}
+          departmentToEdit={departmentToEdit}
+          managers={managers}/> //fix here
+          
+    )} 
     </>
   );
   

@@ -38,7 +38,6 @@ const EmployeeForm = () => {
 
 
   const handleUpdate = (row) => {
-    console.log("hello");
     setEditModalOpen(true);
     setRowToUpdate(row);
   };

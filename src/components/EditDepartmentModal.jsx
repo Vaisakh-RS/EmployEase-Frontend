@@ -15,8 +15,8 @@ const customStyles = {
   },
 };
 
-const EditDepartmentModal = ({ isOpen, onRequestClose, departmentData, managers, onSave }) => {
-  const [editedData, setEditedData] = useState(departmentData);
+const EditDepartmentModal = ({ isOpen, onRequestClose, departmentToEdit, managers, onSave }) => {
+  const [editedData, setEditedData] = useState(departmentToEdit);
 
   const handleSave = () => {
     onSave(editedData);
@@ -28,7 +28,7 @@ const EditDepartmentModal = ({ isOpen, onRequestClose, departmentData, managers,
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Edit Department Modal"
-      style={customStyles} // Apply custom styles
+      style={customStyles} 
     >
       <div className="bg-white rounded p-4">
         <h2 className="text-xl font-semibold mb-4">Edit Department Data</h2>
