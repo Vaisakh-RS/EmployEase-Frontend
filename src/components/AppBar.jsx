@@ -1,7 +1,7 @@
 export default function AppBar()
 {
   return(
-    <div className="nav bg-slate-500 p-4 h-28 flex items-center justify-between sm:w-full">
+    <div className="nav bg-slate-200 p-4 h-28 flex items-center justify-between ">
                 <a href="/" className="p-3 rounded-xl transition-all text-white bg-black hover:bg-white hover:text-black hover:scale-105 duration-200 font-bold">HOME</a>
       <ul className="flex space-x-4 text-black">
 
