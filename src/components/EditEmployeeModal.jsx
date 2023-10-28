@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { CustomToastError, CustomToastSuccess } from './CustomToast';
 
-const UpdateEmployee = ({onClose,rowToUpdate,isOpen,onRequestClose}) => {
+const UpdateEmployee = ({onClose,rowToUpdate,departments,isOpen,onRequestClose}) => {
   const [formData, setFormData] = useState(rowToUpdate);
 
   const handleChange = (e) => {
@@ -139,16 +139,15 @@ const UpdateEmployee = ({onClose,rowToUpdate,isOpen,onRequestClose}) => {
                 className="block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-600">Department:</label>
-              <input
-                type="text"
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-                required
-                className="block w-full border border-gray-300 rounded-md p-2"
-              />
+            <div className='form-input'>
+              <select name='department' value={formData.department} onChange={handleChange} className='border rounded p-2 w-70'>
+                <option value="">Select Department</option>
+                {departments.map((department, index) => (
+                  <option key={index} value={department.id}>
+                    {department.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="mt-6">
               <button
